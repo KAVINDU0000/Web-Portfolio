@@ -1,0 +1,478 @@
+@import "tailwindcss";
+
+/* Design tokens. Colours come from the GENMEDIA brand brief. */
+@theme {
+  --color-bg: #080810;
+  --color-bg-2: #10101c;
+  --color-surface: #151522;
+  --color-text: #ffffff;
+  --color-muted: #a6a6b8;
+  --color-line: rgba(255, 255, 255, 0.1);
+  --color-line-strong: rgba(255, 255, 255, 0.18);
+  --color-cyan: #20d9f4;
+  --color-violet: #8872ff;
+  --color-pink: #e65dca;
+
+  --font-sans: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  --font-mono: var(--font-geist-mono), monospace;
+
+  /* Fluid type scale. */
+  --text-display: clamp(2.75rem, 6vw + 1rem, 5.5rem);
+  --text-headline: clamp(2rem, 3.5vw + 1rem, 3.5rem);
+  --text-title: clamp(1.5rem, 1.5vw + 1.1rem, 2rem);
+  --text-lead: clamp(1.0625rem, 0.6vw + 0.95rem, 1.25rem);
+
+  /* Layout. */
+  --container-page: 72rem;
+  --radius-card: 1rem;
+  --radius-control: 0.5rem;
+
+  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 24px 48px -32px rgba(0, 0, 0, 0.8);
+  --shadow-glow-cyan: 0 0 32px -8px rgba(32, 217, 244, 0.45);
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  /* Keeps section headings and focused elements clear of the sticky header. */
+  scroll-padding-top: 6.5rem;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  overflow-x: hidden;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-cyan);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Accent gradient, used sparingly for key headings. */
+.text-accent {
+  background: linear-gradient(90deg, var(--color-cyan), var(--color-violet) 55%, var(--color-pink));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Entrance motion. Content stays visible if animations are disabled. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.rise {
+  animation: rise 0.8s var(--ease-out-soft) both;
+  animation-delay: var(--delay, 0ms);
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(0, -10px, 0) rotate(1.5deg);
+  }
+}
+
+.drift {
+  animation: drift 14s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes scroll-cue {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(200%);
+    opacity: 0;
+  }
+}
+
+.scroll-cue::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 40%;
+  background: linear-gradient(to bottom, var(--color-cyan), transparent);
+  animation: scroll-cue 2.2s ease-in-out infinite;
+}
+
+/* Respect reduced-motion preferences. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Scroll-linked effects. They use CSS scroll timelines, so they need no JavaScript,
+   and browsers without support simply show the static state. Content is never hidden by default. */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .site-header {
+      animation: header-solidify linear both;
+      animation-timeline: scroll(root block);
+      animation-range: 0px 120px;
+    }
+  }
+}
+
+@keyframes header-solidify {
+  to {
+    background-color: rgb(16 16 28 / 0.92);
+    border-bottom-color: rgb(255 255 255 / 0.1);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal-step {
+      animation: step-in linear both;
+      animation-timeline: view();
+      animation-range: entry 5% cover 35%;
+    }
+    .reveal-line-x {
+      animation: line-grow-x linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 55%;
+    }
+    .reveal-line-y {
+      animation: line-grow-y linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 55%;
+    }
+  }
+}
+
+@keyframes step-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes line-grow-x {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes line-grow-y {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+/* ---- Modern visual system ---- */
+
+/* Slow drifting colour blobs behind the hero. Each blob is a plain element, so no canvas or WebGL is needed. */
+@keyframes blob-drift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(4%, -6%, 0) scale(1.1);
+  }
+  100% {
+    transform: translate3d(-3%, 5%, 0) scale(0.96);
+  }
+}
+
+.mesh-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(90px);
+  opacity: 0.55;
+  animation: blob-drift 22s ease-in-out infinite alternate;
+}
+
+/* Light film over the page. The noise is an inline SVG, so there is no extra request. */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.07;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* Ribbon strokes that travel along their path. */
+@keyframes ribbon-flow {
+  from {
+    stroke-dashoffset: 1000;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.ribbon-flow {
+  stroke-dasharray: 220 780;
+  animation: ribbon-flow 9s linear infinite;
+}
+
+/* Horizontal strip of service names. The track holds two copies so the loop is seamless. */
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 38s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* Gradient border that appears on hover, shared by interactive cards. */
+.card-glow {
+  position: relative;
+  transition:
+    transform 500ms var(--ease-out-soft),
+    box-shadow 500ms var(--ease-out-soft),
+    border-color 500ms var(--ease-out-soft);
+}
+
+.card-glow:hover {
+  border-color: transparent;
+  background:
+    linear-gradient(var(--color-bg-2), var(--color-bg-2)) padding-box,
+    linear-gradient(125deg, rgb(32 217 244 / 0.55), rgb(136 114 255 / 0.45), rgb(230 93 202 / 0.55)) border-box;
+  box-shadow: 0 28px 60px -36px rgb(136 114 255 / 0.55);
+}
+
+/* Slowly moving gradient, used for the closing call-to-action ring. */
+@keyframes sheen {
+  to {
+    background-position: 200% center;
+  }
+}
+
+.sheen {
+  background-size: 200% auto;
+  animation: sheen 9s linear infinite;
+}
+
+.hairline {
+  background: linear-gradient(90deg, transparent, var(--color-cyan), var(--color-violet), var(--color-pink), transparent);
+  opacity: 0.6;
+}
+
+.glass {
+  background: rgb(21 21 34 / 0.55);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+.pulse-ring {
+  animation: pulse-ring 2.4s ease-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track,
+  .mesh-blob,
+  .ribbon-flow,
+  .sheen,
+  .pulse-ring {
+    animation: none !important;
+  }
+  .ribbon-flow {
+    stroke-dasharray: none;
+  }
+}
+
+/* Hero headline size. A plain class, so it always ships with the stylesheet. */
+.hero-title {
+  font-size: clamp(2.5rem, 4.6vw + 0.5rem, 4.9rem);
+}
+
+/* ---- Screen-saver display (hero laptop) ---- */
+@keyframes ss-halo {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}
+
+.ss-halo {
+  background: radial-gradient(closest-side, rgb(136 114 255 / 0.12), transparent 75%);
+  animation: ss-halo 7s ease-in-out infinite;
+}
+
+
+
+
+/* Light that passes over the logo only: the logo image is the mask. */
+@keyframes ss-shine {
+  from {
+    background-position: 150% 0;
+  }
+  to {
+    background-position: -150% 0;
+  }
+}
+
+.ss-shine {
+  -webkit-mask-image: url("/brand/logo-screensaver.webp");
+  mask-image: url("/brand/logo-screensaver.webp");
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  background-image: linear-gradient(105deg, transparent 40%, rgb(255 255 255 / 0.55) 50%, transparent 60%);
+  background-size: 250% 100%;
+  animation: ss-shine 6s linear infinite;
+}
+
+/* ---- Laptop display: realistic logo presentation ---- */
+
+/* One-time reveal on load: the light sweeps left to right, and the logo comes out of a soft blur. */
+@keyframes ss-reveal {
+  0% {
+    opacity: 0;
+    filter: blur(14px) brightness(1.6);
+    transform: scale(0.96);
+  }
+  60% {
+    opacity: 1;
+    filter: blur(0) brightness(1.2);
+  }
+  100% {
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+}
+
+.ss-reveal {
+  animation: ss-reveal 2.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ss-reveal,
+  .ss-halo,
+  .ss-shine {
+    animation: none !important;
+  }
+}
+
+/* ---- Cursor-reactive hero forms ---- */
+/* --px and --py (-1 to 1) are written by hero-forms.tsx. Each form moves by its own --d depth. */
+.hf {
+  transform: translate3d(calc(var(--px, 0) * var(--d, 18px)), calc(var(--py, 0) * var(--d, 18px)), 0)
+    rotateX(calc(var(--py, 0) * -8deg)) rotateY(calc(var(--px, 0) * 10deg));
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* ---- Scroll-linked hero background ---- */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-parallax {
+      animation: hero-parallax linear both;
+      animation-timeline: scroll(root block);
+      animation-range: 0px 70vh;
+    }
+    .hero-device {
+      animation: hero-device linear both;
+      animation-timeline: scroll(root block);
+      animation-range: 0px 70vh;
+    }
+  }
+}
+
+@keyframes hero-parallax {
+  to {
+    transform: translate3d(0, -12%, 0);
+  }
+}
+
+@keyframes hero-device {
+  to {
+    transform: translate3d(0, -6%, 0);
+  }
+}
+
+/* ---- Scroll-triggered reveals ---- */
+/* Content is visible by default. Only browsers with scroll timelines, and visitors without reduced motion, get the reveal. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal-up {
+      animation: reveal-up linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 35%;
+    }
+    .reveal-up-s1 {
+      animation-range: entry 6% entry 42%;
+    }
+    .reveal-up-s2 {
+      animation-range: entry 12% entry 48%;
+    }
+  }
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 28px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
