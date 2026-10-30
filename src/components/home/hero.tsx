@@ -4,13 +4,13 @@ import { ButtonLink } from "@/components/ui/button-link";
 import { Container } from "@/components/ui/container";
 import { DeviceMockup } from "@/components/ui/device-mockup";
 import { Screensaver } from "@/components/ui/screensaver";
-import { HeroForms } from "./hero-forms";
+import { QuickStart } from "@/components/home/quick-start";
 
 export function Hero() {
   return (
-    <section className="grain relative isolate overflow-hidden">
-      {/* Colour field: slow blobs and a faint grid. Purely decorative. */}
-      <div aria-hidden="true" className="hero-parallax absolute inset-0 -z-10 overflow-hidden">
+    <section className="relative isolate overflow-hidden">
+      {/* Colour field: slow blobs and a faint grid. It fades in at the top and out at the bottom, so it never has a hard edge. Purely decorative. */}
+      <div aria-hidden="true" className="hero-parallax absolute inset-0 -z-10 overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,black_20%,black_60%,transparent)]">
         <div className="mesh-blob -left-40 top-0 h-[36rem] w-[36rem] bg-cyan/30" />
         <div className="mesh-blob -right-32 top-16 h-[42rem] w-[42rem] bg-violet/40 [animation-delay:-8s]" />
         <div className="mesh-blob bottom-0 left-1/3 h-[24rem] w-[24rem] bg-pink/25 [animation-delay:-14s]" />
@@ -19,8 +19,6 @@ export function Hero() {
 
       <Container className="grid min-h-[calc(100svh-4rem)] items-center gap-16 py-14 sm:min-h-[calc(100svh-5rem)] sm:py-20 lg:grid-cols-12 lg:gap-x-12 xl:gap-x-16 lg:py-24">
         <div className="relative lg:col-span-7">
-          <HeroForms />
-
           <p className="rise text-xs font-semibold uppercase tracking-[0.2em] text-muted sm:text-sm">
             GENMEDIA · Digital Solutions &amp; Software Development
           </p>
@@ -48,6 +46,8 @@ export function Hero() {
               Let&apos;s Discuss Your Project
             </ButtonLink>
           </div>
+
+          <QuickStart />
         </div>
 
         <div className="rise relative lg:col-span-5 [--delay:200ms]">

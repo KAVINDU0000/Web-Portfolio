@@ -27,7 +27,7 @@ const stepTitles: Record<Step, string> = {
   3: "Budget and review",
 };
 
-// Three-step enquiry form. Values live in React state only: nothing is saved to local storage or sent yet.
+// Three-step enquiry form. Values live in React state until the visitor submits them to /api/enquiry.
 export function ContactForm() {
   const searchParams = useSearchParams();
   const serviceParam = searchParams.get("service") ?? "";
@@ -117,10 +117,13 @@ export function ContactForm() {
       <StepIndicator current={step} />
 
       <div>
-        <h3 ref={headingRef} tabIndex={-1} className="text-lg font-semibold focus:outline-none">
-          Step {step} of 3: {stepTitles[step]}
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan">Step {step} of 3</p>
+        <h3 ref={headingRef} tabIndex={-1} className="mt-2 text-2xl font-semibold tracking-tight focus:outline-none">
+          {stepTitles[step]}
         </h3>
-        <p className="mt-1 text-sm text-muted">Fields marked <span className="text-pink">*</span> are required.</p>
+        <p className="mt-2 text-sm text-muted">
+          Fields marked <span className="text-pink">*</span> are required.
+        </p>
       </div>
 
       {step === 1 ? (
@@ -276,11 +279,11 @@ export function ContactForm() {
       ) : null}
 
       <p className="text-xs leading-relaxed text-muted">
-        We handle enquiry details under our{" "}
+        We use your details only to reply to your enquiry. Read our{" "}
         <Link href="/privacy-policy" className="text-text underline underline-offset-4 hover:text-cyan">
           privacy policy
         </Link>
-        . Your details are not sent until the enquiry backend is connected.
+        .
       </p>
 
       <div className="flex flex-col-reverse gap-4 border-t border-line pt-6 sm:flex-row sm:items-center sm:justify-between">
@@ -315,6 +318,14 @@ export function ContactForm() {
             {submitting ? "Submitting…" : "Submit enquiry"}
           </button>
         )}
+      </div>
+
+      {/* Honeypot: hidden from people and screen readers. Only automated form fillers tend to complete it. */}
+      <div aria-hidden="true" className="absolute -left-[10000px] h-px w-px overflow-hidden">
+        <label>
+          Leave this field empty
+          <input type="text" name="website" tabIndex={-1} autoComplete="off" value={values.website} onChange={update("website")} />
+        </label>
       </div>
 
       <div aria-live="polite">

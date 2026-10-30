@@ -1,3 +1,4 @@
+import { Nebula } from "@/components/layout/nebula";
 import { capabilities, technologies } from "@/data/home";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
@@ -5,7 +6,9 @@ import { TagBadge } from "@/components/ui/badge";
 
 export function Capabilities() {
   return (
-    <section id="capabilities" aria-labelledby="capabilities-heading" className="scroll-mt-16 border-t border-line bg-bg-2 py-24 sm:py-32">
+    <section id="capabilities" aria-labelledby="capabilities-heading" className="relative isolate scroll-mt-16 py-24 sm:py-32">
+      <Nebula tone="cyan" className="left-1/4 -bottom-48 h-[30rem] w-[30rem]" />
+      <Nebula tone="violet" className="-right-40 top-0 h-[28rem] w-[28rem]" />
       <Container>
         <SectionHeading
           eyebrow="Our approach"

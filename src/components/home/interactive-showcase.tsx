@@ -108,7 +108,7 @@ export function InteractiveShowcase() {
   };
 
   return (
-    <section aria-labelledby="showcase-heading" className="border-t border-line py-24 sm:py-32">
+    <section id="showcase" aria-labelledby="showcase-heading" className="scroll-mt-16 py-24 sm:py-32">
       <Container className="grid items-center gap-14 lg:grid-cols-12 lg:gap-12">
         <div className="lg:col-span-5">
           <p className="inline-flex items-center gap-2 rounded-full border border-line-strong bg-bg-2/70 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-cyan">
@@ -139,7 +139,7 @@ export function InteractiveShowcase() {
             onPointerUp={endDrag}
             onPointerCancel={endDrag}
             onKeyDown={onKeyDown}
-            className="group relative mx-auto flex aspect-square w-full max-w-md cursor-grab touch-none select-none items-center justify-center rounded-[calc(var(--radius-card)*1.5)] outline-none transition duration-500 hover:bg-white/[0.02] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan data-[dragging=true]:cursor-grabbing"
+            className="group relative mx-auto flex aspect-square w-full max-w-md cursor-grab touch-none select-none items-center justify-center rounded-[calc(var(--radius-card)*1.5)] outline-none transition duration-500 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan data-[dragging=true]:cursor-grabbing"
             style={{ perspective: "900px" }}
           >
             <div className="absolute inset-[12%] rounded-full bg-[radial-gradient(circle,rgba(136,114,255,0.22),transparent_65%)] blur-2xl transition duration-500 group-hover:scale-105" aria-hidden="true" />

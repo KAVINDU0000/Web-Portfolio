@@ -1,5 +1,5 @@
-// Project enquiry model, frontend validation and the submission boundary.
-// Nothing here sends or stores a message. submitEnquiry is the single function to replace when a backend exists.
+// Project enquiry model, frontend validation and the submission call.
+// The server repeats validation in app/api/enquiry/route.ts, which sends the email.
 
 import type { BudgetRange, EnquiryService } from "./enquiry-options";
 
@@ -13,6 +13,8 @@ export type EnquiryValues = {
   budget: BudgetRange | "";
   // Set when the visitor arrives from a package's quote link. Shown for review only.
   packageName: string;
+  // Hidden honeypot field. Real visitors never fill it, so any value marks the submission as spam.
+  website: string;
 };
 
 export type EnquiryField = keyof EnquiryValues;
@@ -27,6 +29,7 @@ export const emptyEnquiry: EnquiryValues = {
   description: "",
   budget: "",
   packageName: "",
+  website: "",
 };
 
 // Fields that belong to each step of the form.
@@ -79,13 +82,18 @@ export function validateAll(values: EnquiryValues): EnquiryErrors {
   return validateFields(values, [...stepFields[1], ...stepFields[2], ...stepFields[3]]);
 }
 
-// Outcomes the form can display. "sent" is kept for the backend; the current stub never returns it.
+// "not-connected" means the server has no email provider configured yet. Any other failure throws.
 export type EnquiryResult = { status: "not-connected" } | { status: "sent" };
 
-// Boundary for the future backend. It does not send or store anything yet.
-// When connected, replace the body with a request to the real endpoint and return "sent" only after it succeeds.
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export async function submitEnquiry(_values: EnquiryValues): Promise<EnquiryResult> {
-  await new Promise((resolve) => setTimeout(resolve, 700));
-  return { status: "not-connected" };
+// Sends the enquiry to the server. Returns "sent" only after the server accepts it.
+export async function submitEnquiry(values: EnquiryValues): Promise<EnquiryResult> {
+  const response = await fetch("/api/enquiry", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(values),
+  });
+
+  if (response.status === 503) return { status: "not-connected" };
+  if (!response.ok) throw new Error(`Enquiry failed with status ${response.status}`);
+  return { status: "sent" };
 }

@@ -4,12 +4,14 @@ import { services } from "@/data/services";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Container } from "@/components/ui/container";
 import { ServiceCard } from "@/components/services/service-card";
+import { Nebula } from "@/components/layout/nebula";
 
 const accentCycle = ["cyan", "violet", "pink"] as const;
 
 export function ServicesPreview() {
   return (
-    <section id="services" aria-labelledby="services-heading" className="scroll-mt-16 py-24 sm:py-32">
+    <section id="services" aria-labelledby="services-heading" className="relative isolate scroll-mt-16 py-24 sm:py-32">
+      <Nebula tone="cyan" className="-left-48 top-16 h-[34rem] w-[34rem]" />
       <Container>
         <div className="reveal-up flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-2xl">

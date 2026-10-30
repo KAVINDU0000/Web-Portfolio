@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Check } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Check } from "lucide-react";
 import { getProject, projects } from "@/data/projects";
+import { ButtonLink } from "@/components/ui/button-link";
 import { Card } from "@/components/ui/card";
 import { Container } from "@/components/ui/container";
 import { CtaBand } from "@/components/ui/cta-band";
@@ -49,6 +50,11 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
             <TagBadge key={category}>{category}</TagBadge>
           ))}
         </div>
+        {project.liveUrl ? (
+          <ButtonLink href={project.liveUrl} external className="mt-8">
+            Visit Live Site <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+          </ButtonLink>
+        ) : null}
         <Link
           href="/projects"
           className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-muted transition hover:text-text"
@@ -154,7 +160,9 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
             <p className="leading-relaxed text-muted md:col-span-7 md:col-start-6">
               {isInDevelopment
                 ? "This project is under active development and has not been publicly launched. No launch date or live address has been published yet."
-                : "Current status as listed above."}
+                : project.liveUrl
+                  ? `This project is live and publicly available at ${project.liveUrl.replace(/^https?:\/\//, "").replace(/\/$/, "")}.`
+                  : "Current status as listed above."}
             </p>
           </Card>
         </Container>

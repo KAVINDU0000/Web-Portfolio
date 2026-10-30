@@ -21,6 +21,8 @@ export type Project = {
   slug: string;
   title: string;
   status: ProjectStatus;
+  // Public address once the project is launched. Leave unset until then.
+  liveUrl?: string;
   categories: ProjectCategory[];
   // Short text for cards and listings.
   summary: string;
@@ -38,7 +40,8 @@ export const projects: Project[] = [
   {
     slug: "riyona-driving-school",
     title: "Riyona Driving School",
-    status: "In Development",
+    status: "Live",
+    liveUrl: "https://riyonadrivingschool.com.lk/",
     categories: ["Websites & Applications", "Business Systems", "Booking & Scheduling"],
     summary:
       "A modern driving school website and management platform that brings training information, student services, lesson coordination and administrative workflows into one digital experience.",
@@ -57,7 +60,14 @@ export const projects: Project[] = [
       "Administrator portal planned for registration review, fleet management and payment review",
     ],
     techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "PostgreSQL", "Prisma"],
-    screenshots: [],
+    screenshots: [
+      {
+        src: "/projects/riyona-driving-school/home.png",
+        alt: "Riyona Driving School homepage with the headline 'Drive With Confidence', a driving lesson photo and key statistics",
+        width: 1898,
+        height: 1018,
+      },
+    ],
     featured: true,
   },
 ];

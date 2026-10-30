@@ -95,3 +95,27 @@ export const stats = [
   { value: "Modern", label: "Technologies", detail: "Chosen for the problem, not the trend", icon: Cpu },
   { value: "Ongoing", label: "Support", detail: "Improvements after launch, as agreed", icon: LifeBuoy },
 ];
+
+// Questions visitors usually ask before they enquire. Answers stick to what the site already commits to.
+export const homeFaqs = [
+  {
+    question: "How much does a project cost?",
+    answer:
+      "It depends on scope. We confirm pricing in a written quote once we understand your requirements. The budget range in the enquiry form only helps us plan the first conversation.",
+  },
+  {
+    question: "How long does a project take?",
+    answer:
+      "The timeline depends on what is being built. We agree on scope and priorities during the Strategize step, before any building starts.",
+  },
+  {
+    question: "Can you work with an existing website or system?",
+    answer:
+      "Yes. We start by looking at what you already have, then recommend whether to extend it or rebuild it.",
+  },
+  {
+    question: "Do you help after launch?",
+    answer:
+      "Yes. Improvements and support after launch are available, according to the scope we agree on.",
+  },
+];

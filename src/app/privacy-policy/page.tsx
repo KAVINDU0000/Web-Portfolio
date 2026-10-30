@@ -29,15 +29,16 @@ const sections: LegalSection[] = [
     ],
   },
   {
-    title: "Current status of the enquiry form",
+    title: "How enquiries are delivered",
     paragraphs: [
-      "The enquiry form on this website is not yet connected to a delivery system. Submitting it does not send your details to GENMEDIA, and it does not store them on your device. Until the connection is in place, please contact us directly by email or phone.",
+      "When you submit the enquiry form, the details you entered are sent from our website server to GENMEDIA by email. The form is not stored on your device.",
+      "To deliver these emails we use Resend, an email delivery service, which processes the message content on our behalf.",
     ],
   },
   {
     title: "Sharing and retention",
     paragraphs: [
-      "We do not sell personal information. We share it only where needed to respond to you or to deliver a project you have agreed to. We keep enquiry records only for as long as needed to respond and manage any resulting work, unless you ask us to delete them. Specific retention periods will be confirmed before publication.",
+      "We do not sell personal information. We share it only with the email delivery service above, and only where needed to respond to you or to deliver a project you have agreed to. We keep enquiry records only for as long as needed to respond and manage any resulting work, unless you ask us to delete them. Specific retention periods will be confirmed before publication.",
     ],
   },
   {

@@ -22,7 +22,7 @@ export function ProjectMedia({ project, sizes = "(min-width: 768px) 50vw, 100vw"
         height={cover.height}
         sizes={sizes}
         priority={priority}
-        className="h-full w-full object-cover object-top transition duration-700 ease-out-soft group-hover:scale-[1.03]"
+        className="h-full w-full object-contain transition duration-700 ease-out-soft group-hover:scale-[1.03]"
       />
     );
   }

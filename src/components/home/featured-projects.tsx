@@ -5,6 +5,7 @@ import { Container } from "@/components/ui/container";
 import { DeviceMockup } from "@/components/ui/device-mockup";
 import { StatusBadge, TagBadge } from "@/components/ui/badge";
 import { ProjectMedia } from "@/components/projects/project-media";
+import { Nebula } from "@/components/layout/nebula";
 
 // Split feature: copy on one side, the project's screen in a device frame on the other.
 // Until approved screenshots exist, the frame shows the labelled placeholder rather than an invented screen.
@@ -13,7 +14,8 @@ export function FeaturedProjects() {
   if (!project) return null;
 
   return (
-    <section id="featured-projects" aria-labelledby="featured-heading" className="scroll-mt-16 border-t border-line py-24 sm:py-32">
+    <section id="featured-projects" aria-labelledby="featured-heading" className="relative isolate scroll-mt-16 py-24 sm:py-32">
+      <Nebula tone="pink" className="-right-48 top-1/4 h-[30rem] w-[30rem]" />
       <Container className="grid items-center gap-16 lg:grid-cols-12 lg:gap-12">
         <div className="reveal-up lg:col-span-5">
           <p className="inline-flex items-center gap-2 rounded-full border border-line-strong bg-bg-2/70 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-cyan">
@@ -42,9 +44,15 @@ export function FeaturedProjects() {
               <ButtonLink href={`/projects/${project.slug}`}>
                 View Case Study <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
               </ButtonLink>
-              <ButtonLink href="/projects" variant="secondary">
-                See All Projects
-              </ButtonLink>
+              {project.liveUrl ? (
+                <ButtonLink href={project.liveUrl} variant="secondary" external>
+                  Visit Live Site <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+                </ButtonLink>
+              ) : (
+                <ButtonLink href="/projects" variant="secondary">
+                  See All Projects
+                </ButtonLink>
+              )}
             </div>
           </article>
         </div>

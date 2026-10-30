@@ -1,3 +1,4 @@
+import { Nebula } from "@/components/layout/nebula";
 import { Compass, Hammer, Rocket, Search, type LucideIcon } from "lucide-react";
 import { processSteps } from "@/data/home";
 import { Container } from "@/components/ui/container";
@@ -15,7 +16,9 @@ const glows = [
 // All scroll effects are CSS-only (see globals.css); the steps are readable without them.
 export function Process() {
   return (
-    <section id="process" aria-labelledby="process-heading" className="scroll-mt-16 border-t border-line py-24 sm:py-32">
+    <section id="process" aria-labelledby="process-heading" className="relative isolate scroll-mt-16 py-24 sm:py-32">
+      <Nebula tone="violet" className="-right-56 top-1/3 h-[38rem] w-[38rem]" />
+      <Nebula tone="pink" className="-left-56 bottom-0 h-[28rem] w-[28rem]" />
       <Container>
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <SectionHeading

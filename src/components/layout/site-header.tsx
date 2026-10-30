@@ -23,7 +23,7 @@ export function SiteHeader() {
   return (
     <>
       <header className="pointer-events-none sticky top-0 z-50 px-3 pt-3 sm:px-6 sm:pt-4">
-        <div className="site-header pointer-events-auto relative mx-auto flex h-16 max-w-[calc(var(--container-page)-4rem)] items-center justify-between gap-4 rounded-full border border-line-strong bg-bg/60 pl-3 pr-2 shadow-[0_24px_60px_-32px_rgba(136,114,255,0.45)] backdrop-blur-xl sm:h-[4.25rem] sm:pl-4">
+        <div className="site-header pointer-events-auto relative mx-auto flex h-16 max-w-[calc(var(--container-page)-4rem)] items-center justify-between gap-4 rounded-full border border-line-strong bg-bg/60 pl-3 pr-2 shadow-[0_24px_60px_-32px_rgba(136,114,255,0.45)] sm:h-[4.25rem] sm:pl-4">
           {/* Gradient rim along the bottom edge of the capsule. */}
           <span aria-hidden="true" className="hairline pointer-events-none absolute inset-x-12 -bottom-px h-px" />
 

@@ -411,15 +411,6 @@ body {
   }
 }
 
-/* ---- Cursor-reactive hero forms ---- */
-/* --px and --py (-1 to 1) are written by hero-forms.tsx. Each form moves by its own --d depth. */
-.hf {
-  transform: translate3d(calc(var(--px, 0) * var(--d, 18px)), calc(var(--py, 0) * var(--d, 18px)), 0)
-    rotateX(calc(var(--py, 0) * -8deg)) rotateY(calc(var(--px, 0) * 10deg));
-  transform-style: preserve-3d;
-  will-change: transform;
-}
-
 /* ---- Scroll-linked hero background ---- */
 @supports (animation-timeline: scroll()) {
   @media (prefers-reduced-motion: no-preference) {
@@ -445,6 +436,157 @@ body {
 @keyframes hero-device {
   to {
     transform: translate3d(0, -6%, 0);
+  }
+}
+
+/* ---- Section nebulae: soft colour glows placed inside home sections ---- */
+/* The gradient fades to transparent on its own, so no blur filter or blend mode is needed. */
+.nebula-glow {
+  width: 36rem;
+  height: 36rem;
+  opacity: 0.5;
+  animation: cosmic-drift 30s ease-in-out infinite alternate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nebula-glow {
+    animation: none !important;
+  }
+}
+
+/* ---- Cosmic backdrop: nebula glows, signal rings and a dot grid, fixed behind the page ---- */
+.cosmic-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Oversized so the parallax shift never uncovers an edge at the top or bottom of the viewport. */
+.cosmic-nebula {
+  position: absolute;
+  inset: -25% -10%;
+}
+
+/* The procedural nebula. Plain opacity, not a blend mode: blend modes make the browser recombine the layer on every frame. */
+.cosmic-cloud {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+}
+
+.cosmic-stars {
+  animation: cosmic-twinkle 7s ease-in-out infinite alternate;
+}
+
+@keyframes cosmic-twinkle {
+  from {
+    opacity: 0.55;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Soft by design: the radial gradients below fade to transparent, so no extra blur filter is needed. */
+.cosmic-glow {
+  position: absolute;
+  border-radius: 9999px;
+  opacity: 0.42;
+  animation: cosmic-drift 26s ease-in-out infinite alternate;
+}
+
+.cosmic-glow-a {
+  left: -4vw;
+  top: 4vh;
+  width: 46vw;
+  height: 46vw;
+  background: radial-gradient(closest-side, rgb(32 217 244 / 0.6), transparent);
+}
+
+.cosmic-glow-b {
+  right: -12vw;
+  top: 18vh;
+  width: 52vw;
+  height: 52vw;
+  background: radial-gradient(closest-side, rgb(136 114 255 / 0.65), transparent);
+  animation-delay: -9s;
+}
+
+.cosmic-glow-c {
+  left: 34vw;
+  bottom: -12vh;
+  width: 40vw;
+  height: 40vw;
+  background: radial-gradient(closest-side, rgb(230 93 202 / 0.45), transparent);
+  animation-delay: -16s;
+}
+
+@keyframes cosmic-drift {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(3vw, -3vh, 0) scale(1.08);
+  }
+}
+
+/* A faint dot grid that fades out toward the lower left, so it reads as texture rather than a pattern to look at. */
+.cosmic-dots {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgb(255 255 255 / 0.1) 1px, transparent 1.2px);
+  background-size: 28px 28px;
+  -webkit-mask-image: radial-gradient(ellipse at 70% 30%, black, transparent 72%);
+  mask-image: radial-gradient(ellipse at 70% 30%, black, transparent 72%);
+}
+
+.cosmic-signal {
+  position: absolute;
+  right: -10vw;
+  top: 6vh;
+  width: 44vw;
+  max-width: 560px;
+  height: auto;
+  opacity: 0.2;
+}
+
+/* Thin progress bar along the top of the viewport. Its fill is tied to how far the page has been scrolled. */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 60;
+  width: 100%;
+  height: 2px;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  background: linear-gradient(90deg, var(--color-cyan), var(--color-violet), var(--color-pink));
+  box-shadow: 0 0 12px rgb(136 114 255 / 0.6);
+}
+
+@supports (animation-timeline: scroll()) {
+  .scroll-progress {
+    animation: scroll-progress linear both;
+    animation-timeline: scroll(root block);
+  }
+}
+
+@keyframes scroll-progress {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cosmic-glow,
+  .cosmic-nebula,
+  .cosmic-signal,
+  .cosmic-stars {
+    animation: none !important;
   }
 }
 

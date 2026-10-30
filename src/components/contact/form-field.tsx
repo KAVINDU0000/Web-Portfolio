@@ -39,4 +39,4 @@ export function FormField({ id, label, required = false, hint, error, children }
 }
 
 export const controlClass =
-  "min-h-12 w-full rounded-[var(--radius-control)] border border-line-strong bg-bg px-4 text-base text-text placeholder:text-muted/60 transition focus:border-cyan focus:outline-none aria-[invalid=true]:border-pink";
+  "min-h-12 w-full rounded-[var(--radius-control)] border border-line-strong bg-bg-2 px-4 text-base text-text placeholder:text-muted/60 transition hover:border-white/30 focus:border-cyan focus:bg-bg focus:outline-none focus:ring-3 focus:ring-cyan/20 aria-[invalid=true]:border-pink";

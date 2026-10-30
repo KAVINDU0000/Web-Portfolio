@@ -1,3 +1,4 @@
+import { Nebula } from "@/components/layout/nebula";
 import { principles } from "@/data/home";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Container } from "@/components/ui/container";
@@ -5,7 +6,8 @@ import { SectionHeading } from "@/components/ui/section-heading";
 
 export function AboutPreview() {
   return (
-    <section id="about" aria-labelledby="about-heading" className="scroll-mt-16 border-t border-line bg-bg-2 py-24 sm:py-32">
+    <section id="about" aria-labelledby="about-heading" className="relative isolate scroll-mt-16 py-24 sm:py-32">
+      <Nebula tone="pink" className="-left-40 top-1/3 h-[30rem] w-[30rem]" />
       <Container>
         <div className="grid gap-16 lg:grid-cols-12">
           <div className="lg:col-span-6">

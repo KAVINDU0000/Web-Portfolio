@@ -17,7 +17,7 @@ const linkClass = "text-muted transition-colors hover:text-text";
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-line bg-bg-2">
+    <footer className="bg-bg/60 backdrop-blur-xl">
       <div className="mx-auto grid w-full max-w-[var(--container-page)] gap-12 px-5 py-16 sm:px-8 md:grid-cols-2 lg:grid-cols-12">
         <div className="lg:col-span-4">
           {/* Official logo, used unchanged. */}
@@ -80,7 +80,7 @@ export function SiteFooter() {
         </div>
       </div>
 
-      <div className="border-t border-line">
+      <div>
         <div className="mx-auto flex w-full max-w-[var(--container-page)] flex-col gap-4 px-5 py-6 text-xs text-muted sm:flex-row sm:items-center sm:justify-between sm:px-8">
           <p>
             © <Suspense fallback={company.copyrightYear}><CopyrightYear /></Suspense> {company.name}. All rights reserved.

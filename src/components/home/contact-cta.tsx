@@ -1,10 +1,12 @@
+import { Nebula } from "@/components/layout/nebula";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Container } from "@/components/ui/container";
 
 // Closing call to action: a slowly moving gradient ring around a solid panel, so the text stays readable.
 export function ContactCta() {
   return (
-    <section aria-labelledby="cta-heading" className="pb-24 sm:pb-32">
+    <section id="contact" aria-labelledby="cta-heading" className="relative isolate scroll-mt-16 pb-24 sm:pb-32">
+      <Nebula tone="violet" className="left-1/2 -bottom-40 h-[30rem] w-[30rem] -translate-x-1/2" />
       <Container>
         <div className="reveal-up sheen rounded-[calc(var(--radius-card)*1.6)] bg-[linear-gradient(120deg,#20D9F4,#8872FF,#E65DCA,#20D9F4)] p-px">
           <div className="relative isolate grid gap-8 overflow-hidden rounded-[calc(var(--radius-card)*1.6-1px)] bg-bg px-6 py-12 sm:px-12 sm:py-14 md:grid-cols-[1fr_auto] md:items-center">

@@ -1,3 +1,4 @@
+import { Nebula } from "@/components/layout/nebula";
 import { ArrowUpRight } from "lucide-react";
 import { pricingCategories } from "@/data/pricing";
 import { ButtonLink } from "@/components/ui/button-link";
@@ -6,7 +7,9 @@ import { SectionHeading } from "@/components/ui/section-heading";
 
 export function PricingPreview() {
   return (
-    <section id="pricing" aria-labelledby="pricing-heading" className="scroll-mt-16 border-t border-line py-24 sm:py-32">
+    <section id="pricing" aria-labelledby="pricing-heading" className="relative isolate scroll-mt-16 py-24 sm:py-32">
+      <Nebula tone="violet" className="-left-48 top-0 h-[32rem] w-[32rem]" />
+      <Nebula tone="cyan" className="-right-44 bottom-0 h-[26rem] w-[26rem]" />
       <Container>
         <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
           <SectionHeading
