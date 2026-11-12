@@ -23,6 +23,14 @@ type TiltSetters = {
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
   const tilt = useRef<TiltSetters | null>(null);
+  // The latest pointer position, applied at most once per frame so a fast mouse does not trigger a repaint per event.
+  const pointer = useRef<{ x: number; y: number; width: number; height: number; scheduled: boolean }>({
+    x: 0,
+    y: 0,
+    width: 1,
+    height: 1,
+    scheduled: false,
+  });
 
   useGSAP(
     () => {
@@ -48,7 +56,6 @@ export function Hero() {
 
       // Ambient motion: orbit rings, a float on the phone, a sheen across the screens, a shimmering headline.
       gsap.to(q("[data-orbit]"), { rotate: 360, duration: 28, repeat: -1, ease: "none" });
-      gsap.to(q("[data-glow]"), { rotate: 360, duration: 60, repeat: -1, ease: "none" });
       gsap.to(q("[data-float]"), { y: -12, duration: 3.4, repeat: -1, yoyo: true, ease: "sine.inOut" });
       gsap.to(q("[data-shimmer]"), { backgroundPosition: "200% center", duration: 6, repeat: -1, ease: "none" });
 
@@ -64,16 +71,23 @@ export function Hero() {
 
   // Pointer position drives a light (CSS variables, no React state) and the laptop tilt.
   function handlePointer(event: PointerEvent<HTMLElement>) {
-    const rect = event.currentTarget.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-    event.currentTarget.style.setProperty("--mx", `${x}px`);
-    event.currentTarget.style.setProperty("--my", `${y}px`);
-    if (!tilt.current) return;
-    const nx = x / rect.width - 0.5;
-    const ny = y / rect.height - 0.5;
-    tilt.current.ry(nx * 10);
-    tilt.current.rx(-ny * 6);
+    const target = event.currentTarget;
+    const rect = target.getBoundingClientRect();
+    const state = pointer.current;
+    state.x = event.clientX - rect.left;
+    state.y = event.clientY - rect.top;
+    state.width = rect.width;
+    state.height = rect.height;
+    if (state.scheduled) return;
+    state.scheduled = true;
+    requestAnimationFrame(() => {
+      state.scheduled = false;
+      target.style.setProperty("--mx", `${state.x}px`);
+      target.style.setProperty("--my", `${state.y}px`);
+      if (!tilt.current) return;
+      tilt.current.ry((state.x / state.width - 0.5) * 10);
+      tilt.current.rx(-(state.y / state.height - 0.5) * 6);
+    });
   }
 
   function resetTilt() {
@@ -153,7 +167,7 @@ export function Hero() {
           <div
             aria-hidden="true"
             data-glow
-            className="pointer-events-none absolute left-1/2 top-[45%] aspect-square w-[110%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[conic-gradient(from_180deg,rgba(0,200,240,0.5),rgba(0,120,240,0.35),rgba(80,40,240,0.45),rgba(0,200,240,0.5))] opacity-30 blur-3xl"
+            className="pointer-events-none absolute left-1/2 top-[45%] aspect-square w-[110%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(0,200,240,0.45),rgba(80,40,240,0.3)_55%,transparent)] opacity-30 blur-3xl"
           />
 
           {/* Laptop, tilting toward the pointer. */}

@@ -52,7 +52,7 @@ export default function ServicesPage() {
           </div>
 
           <div className="lg:col-span-4 lg:justify-self-end">
-            <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-7 backdrop-blur-xl">
+            <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-7">
               <span aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-cyan via-indigo-500 to-violet-600" />
               <p className="font-mono text-5xl font-semibold text-white">{String(services.length).padStart(2, "0")}</p>
               <p className="mt-3 text-sm leading-relaxed text-white/60">service areas, from websites to AI and industry software.</p>
@@ -75,7 +75,7 @@ export default function ServicesPage() {
                 return (
                   <li key={service.slug} className="flex">
                     <SpotlightCard className="flex w-full">
-                      <article className="group relative flex w-full flex-col overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-7 backdrop-blur-xl transition duration-500 hover:border-white/20 sm:p-8">
+                      <article className="group relative flex w-full flex-col overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-7 transition duration-500 hover:border-white/20 sm:p-8">
                         <span aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-cyan via-indigo-500 to-violet-600 opacity-40 transition duration-500 group-hover:opacity-100" />
 
                         <div className="flex items-center justify-between">
@@ -127,7 +127,7 @@ export default function ServicesPage() {
           <Stagger>
             <ol className="mt-12 grid gap-5 md:grid-cols-4">
               {processSteps.map((step) => (
-                <li key={step.title} className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-xl">
+                <li key={step.title} className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
                   <p className="font-mono text-xs text-cyan">{step.number}</p>
                   <h3 className="mt-4 text-lg font-semibold text-white">{step.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-white/60">{step.text}</p>
@@ -141,7 +141,7 @@ export default function ServicesPage() {
       {/* Closing call to action */}
       <section aria-labelledby="services-cta-heading" className="pb-24 sm:pb-32">
         <Container>
-          <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-8 backdrop-blur-xl sm:p-12">
+          <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-8 sm:p-12">
             <span aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-cyan via-indigo-500 to-violet-600" />
             <div aria-hidden="true" className="absolute -right-32 -top-32 h-72 w-72 rounded-full bg-[radial-gradient(closest-side,rgba(0,200,240,0.15),transparent)]" />
             <div className="relative flex flex-col gap-8 md:flex-row md:items-center md:justify-between">

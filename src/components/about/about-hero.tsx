@@ -88,7 +88,7 @@ export function AboutHero({ description }: { description: string }) {
         {/* Logo medallion with a slowly turning dashed ring. */}
         <div data-medallion className="relative flex h-28 w-28 items-center justify-center">
           <span data-orbit aria-hidden="true" className="absolute inset-0 rounded-full border border-dashed border-cyan/40" />
-          <span className="flex h-20 w-20 items-center justify-center rounded-full bg-[#070920]/80 ring-1 ring-white/10 backdrop-blur-xl">
+          <span className="flex h-20 w-20 items-center justify-center rounded-full bg-[#070920]/80 ring-1 ring-white/10">
             <Image src="/brand/genmedia-logo-transparent.png" alt="GENMEDIA logo" width={975} height={545} sizes="80px" className="h-auto w-12" />
           </span>
         </div>
@@ -122,7 +122,7 @@ export function AboutHero({ description }: { description: string }) {
             <span
               key={pillar.text}
               data-pillar
-              className={`rounded-full border border-white/10 bg-white/[0.04] px-5 py-2 text-sm font-semibold uppercase tracking-[0.2em] backdrop-blur-xl ${pillar.color}`}
+              className={`rounded-full border border-white/10 bg-white/[0.04] px-5 py-2 text-sm font-semibold uppercase tracking-[0.2em] ${pillar.color}`}
             >
               {pillar.text}
             </span>

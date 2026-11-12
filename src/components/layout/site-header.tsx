@@ -100,7 +100,7 @@ export function SiteHeader() {
         </div>
       </header>
 
-      {/* Rendered outside the header: the header's backdrop-blur would otherwise trap the fixed panel inside it. */}
+      {/* Rendered outside the header: the header's would otherwise trap the fixed panel inside it. */}
       <MobileNavigation
         open={menuOpen}
         pathname={pathname}

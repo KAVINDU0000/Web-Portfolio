@@ -97,7 +97,7 @@ export default function ContactPage() {
             {steps.map(({ title, icon: Icon }, index) => (
               <li
                 key={title}
-                className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-xl transition duration-500 hover:border-cyan/30 hover:bg-white/[0.05]"
+                className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition duration-500 hover:border-cyan/30 hover:bg-white/[0.05]"
               >
                 <span aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-cyan via-indigo-500 to-violet-600 opacity-50 transition duration-500 group-hover:opacity-100" />
                 <div className="flex items-center justify-between">
@@ -118,7 +118,7 @@ export default function ContactPage() {
           <aside aria-label="Ways to contact us" className="space-y-8 lg:col-span-5">
             <div>
               <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan">Ways to reach us</h2>
-              <ul className="mt-6 divide-y divide-white/10 overflow-hidden rounded-[1.25rem] border border-white/10 bg-white/[0.03] backdrop-blur-xl">
+              <ul className="mt-6 divide-y divide-white/10 overflow-hidden rounded-[1.25rem] border border-white/10 bg-white/[0.03]">
                 {channels.map((item) => {
                   const Icon = item.icon;
                   return (
@@ -150,7 +150,7 @@ export default function ContactPage() {
               </p>
             </div>
 
-            <div className="rounded-[1.25rem] border border-white/10 bg-white/[0.03] p-6 backdrop-blur-xl sm:p-8">
+            <div className="rounded-[1.25rem] border border-white/10 bg-white/[0.03] p-6 sm:p-8">
               <h2 className="text-lg font-semibold text-white">What to include in your enquiry</h2>
               <p className="mt-2 text-sm leading-relaxed text-white/65">
                 You do not need every answer. These details help us reply with a useful first response.
@@ -168,7 +168,7 @@ export default function ContactPage() {
 
           {/* Glass panel with a gradient top edge, so the form reads as the main action on the page. */}
           <div id="enquiry" className="scroll-mt-28 lg:col-span-7">
-            <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-6 shadow-[0_60px_120px_-50px_rgba(0,200,240,0.3)] backdrop-blur-xl sm:p-10">
+            <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-6 shadow-[0_60px_120px_-50px_rgba(0,200,240,0.3)] sm:p-10">
               <span aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-cyan via-indigo-500 to-violet-600" />
               <h2 id="enquiry-heading" className="text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">
                 Project enquiry
@@ -189,7 +189,7 @@ export default function ContactPage() {
 
       <section aria-labelledby="quick-chat-heading" className="pb-20 sm:pb-28">
         <Container>
-          <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-8 backdrop-blur-xl sm:p-12">
+          <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-8 sm:p-12">
             <span aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-cyan via-indigo-500 to-violet-600" />
             <div aria-hidden="true" className="absolute -right-32 -top-32 h-72 w-72 rounded-full bg-[radial-gradient(closest-side,rgba(0,200,240,0.15),transparent)]" />
             <div className="relative flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between">

@@ -13,7 +13,7 @@ type ProjectCardProps = {
 // The after: layer makes the whole card clickable while keeping one real link for keyboard users.
 export function ProjectCard({ project, priority = false }: ProjectCardProps) {
   return (
-    <article className="group relative flex h-full flex-col overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.03] backdrop-blur-xl transition duration-500 hover:-translate-y-1 hover:border-cyan/30 hover:shadow-[0_30px_80px_-30px_rgba(0,200,240,0.4)]">
+    <article className="group relative flex h-full flex-col overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.03] transition duration-500 hover:-translate-y-1 hover:border-cyan/30 hover:shadow-[0_30px_80px_-30px_rgba(0,200,240,0.4)]">
       <span aria-hidden="true" className="absolute inset-x-0 top-0 z-10 h-px bg-linear-to-r from-cyan via-indigo-500 to-violet-600 opacity-50 transition duration-500 group-hover:opacity-100" />
 
       <div className="relative aspect-[16/10] overflow-hidden border-b border-white/10 bg-[#03041a]">

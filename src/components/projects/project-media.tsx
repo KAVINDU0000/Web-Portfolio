@@ -34,11 +34,12 @@ export function ProjectMedia({ project, sizes = "(min-width: 768px) 50vw, 100vw"
       className="relative flex h-full w-full items-center justify-center overflow-hidden bg-bg-2"
     >
       <div aria-hidden="true" className="absolute inset-0 overflow-hidden">
-        <div className="mesh-blob -left-16 -top-10 h-64 w-64 bg-cyan/30" />
-        <div className="mesh-blob -bottom-16 right-0 h-72 w-72 bg-violet/35 [animation-delay:-7s]" />
+        {/* Static glows: animated blurred layers repaint on every frame, which is costly when many cards are on screen. */}
+        <div className="absolute -left-16 -top-10 h-64 w-64 rounded-full bg-[radial-gradient(closest-side,rgba(0,200,240,0.3),transparent)]" />
+        <div className="absolute -bottom-16 right-0 h-72 w-72 rounded-full bg-[radial-gradient(closest-side,rgba(136,114,255,0.35),transparent)]" />
       </div>
       <RibbonArt id={`ph-${project.slug}`} className="absolute inset-[8%] h-[84%] w-[84%] opacity-80" />
-      <p className="relative rounded-full border border-line-strong bg-bg/70 px-4 py-2 text-xs uppercase tracking-[0.2em] text-muted backdrop-blur">
+      <p className="relative rounded-full border border-line-strong bg-bg/70 px-4 py-2 text-xs uppercase tracking-[0.2em] text-muted">
         Screenshot to be added
       </p>
     </div>

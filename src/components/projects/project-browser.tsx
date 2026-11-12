@@ -21,7 +21,7 @@ export function ProjectBrowser({ projects }: ProjectBrowserProps) {
 
   return (
     <div>
-      <div role="group" aria-label="Filter projects by category" className="flex flex-wrap gap-2 rounded-2xl border border-white/10 bg-white/[0.03] p-2 backdrop-blur-xl">
+      <div role="group" aria-label="Filter projects by category" className="flex flex-wrap gap-2 rounded-2xl border border-white/10 bg-white/[0.03] p-2">
         {filters.map((filter) => {
           const pressed = filter === active;
           return (
@@ -57,7 +57,7 @@ export function ProjectBrowser({ projects }: ProjectBrowserProps) {
           ))}
         </ul>
       ) : (
-        <div className="relative mt-6 overflow-hidden rounded-[1.5rem] border border-dashed border-cyan/25 bg-white/[0.02] p-10 text-center backdrop-blur-xl">
+        <div className="relative mt-6 overflow-hidden rounded-[1.5rem] border border-dashed border-cyan/25 bg-white/[0.02] p-10 text-center">
           <h3 className="text-xl font-semibold text-white">No projects in this category yet</h3>
           <p className="mx-auto mt-3 max-w-md text-white/60">
             We are preparing more work for this category. You can view all projects, or tell us about the one you have in mind.

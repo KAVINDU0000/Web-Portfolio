@@ -11,7 +11,7 @@ type ProjectGalleryProps = {
 };
 
 const roundButton =
-  "inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-[#070920]/80 text-white/80 backdrop-blur transition hover:border-cyan hover:text-cyan";
+  "inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-[#070920]/80 text-white/80 transition hover:border-cyan hover:text-cyan";
 
 // Responsive gallery. Thumbnails keep each screenshot's own aspect ratio, so nothing is stretched or cropped.
 // Selecting one opens a native <dialog>, which handles focus trapping and Escape for us.
@@ -58,7 +58,7 @@ export function ProjectGallery({ project }: ProjectGalleryProps) {
               type="button"
               onClick={(event) => open(shotIndex, event.currentTarget)}
               aria-label={`Open screenshot ${shotIndex + 1} of ${shots.length}: ${shot.alt}`}
-              className="group relative block w-full overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-2 backdrop-blur-xl transition duration-500 hover:-translate-y-1 hover:border-cyan/30 hover:shadow-[0_30px_80px_-30px_rgba(0,200,240,0.4)]"
+              className="group relative block w-full overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-2 transition duration-500 hover:-translate-y-1 hover:border-cyan/30 hover:shadow-[0_30px_80px_-30px_rgba(0,200,240,0.4)]"
             >
               <span className="block overflow-hidden rounded-xl">
                 <Image

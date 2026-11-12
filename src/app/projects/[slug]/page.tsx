@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: PageProps<"/projects/[slug]">
 
 const eyebrow = "text-xs font-semibold uppercase tracking-[0.22em] text-cyan";
 const heading = "mt-5 text-3xl font-semibold leading-tight tracking-tight text-white sm:text-4xl";
-const glassCard = "relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-8 backdrop-blur-xl sm:p-10";
+const glassCard = "relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-8 sm:p-10";
 const topEdge = "absolute inset-x-0 top-0 h-px bg-linear-to-r from-cyan via-indigo-500 to-violet-600";
 
 export default async function ProjectPage({ params }: PageProps<"/projects/[slug]">) {
@@ -86,7 +86,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
           ) : null}
 
           {/* Browser-style frame around the project's first screenshot, or the placeholder until one is approved. */}
-          <div className="relative mt-16 rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-2 shadow-[0_60px_120px_-40px_rgba(0,200,240,0.3)] backdrop-blur-xl">
+          <div className="relative mt-16 rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-2 shadow-[0_60px_120px_-40px_rgba(0,200,240,0.3)]">
             <div className="flex items-center gap-4 px-3 py-2.5">
               <div className="flex gap-1.5" aria-hidden="true">
                 <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
@@ -174,7 +174,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
             {project.features.map((feature, index) => (
               <li
                 key={feature}
-                className="group relative flex gap-4 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-6 leading-relaxed text-white/85 backdrop-blur-xl transition duration-500 hover:border-cyan/30"
+                className="group relative flex gap-4 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-6 leading-relaxed text-white/85 transition duration-500 hover:border-cyan/30"
               >
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-linear-to-br from-cyan/20 via-indigo-500/15 to-violet-600/20 text-cyan ring-1 ring-inset ring-white/10">
                   <Check aria-hidden="true" className="h-4 w-4" />
@@ -200,7 +200,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
           </div>
           <ul className="flex flex-wrap content-start gap-3 lg:col-span-8">
             {project.techStack.map((tech) => (
-              <li key={tech} className="rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-sm text-white/80 backdrop-blur">
+              <li key={tech} className="rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-sm text-white/80">
                 {tech}
               </li>
             ))}
@@ -252,7 +252,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
       {/* Closing call to action */}
       <section aria-labelledby="case-cta-heading" className="pb-24 sm:pb-32">
         <Container>
-          <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-8 backdrop-blur-xl sm:p-12">
+          <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-8 sm:p-12">
             <span aria-hidden="true" className={topEdge} />
             <div aria-hidden="true" className="absolute -right-32 -top-32 h-72 w-72 rounded-full bg-[radial-gradient(closest-side,rgba(0,200,240,0.15),transparent)]" />
             <div className="relative flex flex-col gap-8 md:flex-row md:items-center md:justify-between">

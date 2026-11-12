@@ -14,7 +14,7 @@ export const quoteHref = (category: PricingCategory, pkg: PricingPackage) =>
 // Glass package card. Shows an approved price when one is set in data/pricing.ts, otherwise "Request a Quote".
 export function PricingCard({ category, pkg }: PricingCardProps) {
   return (
-    <article className="group relative flex h-full flex-col overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-7 backdrop-blur-xl transition duration-500 hover:-translate-y-1 hover:border-cyan/30 hover:shadow-[0_30px_80px_-30px_rgba(0,200,240,0.4)] sm:p-8">
+    <article className="group relative flex h-full flex-col overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-7 transition duration-500 hover:-translate-y-1 hover:border-cyan/30 hover:shadow-[0_30px_80px_-30px_rgba(0,200,240,0.4)] sm:p-8">
       <span aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-cyan via-indigo-500 to-violet-600 opacity-50 transition duration-500 group-hover:opacity-100" />
 
       <h3 className="text-xl font-semibold tracking-tight text-white">{pkg.name}</h3>

@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: PageProps<"/services/[slug]">
 
 const eyebrow = "text-xs font-semibold uppercase tracking-[0.22em] text-cyan";
 const heading = "mt-5 text-3xl font-semibold leading-tight tracking-tight text-white sm:text-4xl";
-const glassCard = "group relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-7 backdrop-blur-xl transition duration-500 hover:border-cyan/30 sm:p-8";
+const glassCard = "group relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-7 transition duration-500 hover:border-cyan/30 sm:p-8";
 const topEdge = "absolute inset-x-0 top-0 h-px bg-linear-to-r from-cyan via-indigo-500 to-violet-600 opacity-50 transition duration-500 group-hover:opacity-100";
 
 export default async function ServicePage({ params }: PageProps<"/services/[slug]">) {
@@ -83,7 +83,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
             <div className="relative mx-auto flex aspect-square w-full max-w-sm items-center justify-center">
               <div aria-hidden="true" className="absolute inset-0 rounded-full bg-[radial-gradient(closest-side,rgba(0,200,240,0.25),rgba(80,40,240,0.12)_55%,transparent)] blur-2xl" />
               <div aria-hidden="true" className="absolute inset-6 rounded-full border border-dashed border-cyan/30" />
-              <div className="relative flex h-40 w-40 items-center justify-center rounded-[2rem] border border-white/10 bg-[#070920]/80 text-cyan shadow-[0_40px_90px_-30px_rgba(0,200,240,0.5)] backdrop-blur-xl">
+              <div className="relative flex h-40 w-40 items-center justify-center rounded-[2rem] border border-white/10 bg-[#070920]/80 text-cyan shadow-[0_40px_90px_-30px_rgba(0,200,240,0.5)]">
                 <Icon aria-hidden="true" className="h-16 w-16" />
               </div>
             </div>
@@ -126,7 +126,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
               Scope is agreed for each project. Listed items describe what we can build, not products already in use.
             </p>
           </div>
-          <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-8 backdrop-blur-xl sm:p-10 lg:col-span-7">
+          <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-8 sm:p-10 lg:col-span-7">
             <span aria-hidden="true" className={topEdge} />
             <ul className="space-y-5">
               {service.capabilities.map((item) => (
@@ -223,7 +223,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
           </div>
           <div className="space-y-3 lg:col-span-8">
             {service.faqs.map((faq) => (
-              <details key={faq.question} className="group overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-xl open:border-cyan/30">
+              <details key={faq.question} className="group overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] open:border-cyan/30">
                 <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-6 p-6 text-left font-semibold text-white">
                   {faq.question}
                   <span aria-hidden="true" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/15 text-cyan transition group-open:rotate-45">
@@ -240,7 +240,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
       {/* Closing call to action */}
       <section aria-labelledby="service-cta-heading" className="pb-24 sm:pb-32">
         <Container>
-          <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-8 backdrop-blur-xl sm:p-12">
+          <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-8 sm:p-12">
             <span aria-hidden="true" className={topEdge} />
             <div aria-hidden="true" className="absolute -right-32 -top-32 h-72 w-72 rounded-full bg-[radial-gradient(closest-side,rgba(0,200,240,0.15),transparent)]" />
             <div className="relative flex flex-col gap-8 md:flex-row md:items-center md:justify-between">

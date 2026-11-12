@@ -92,7 +92,7 @@ export function TaglineBand() {
               return (
                 <li key={stat.label} className="flex lg:w-[19rem] lg:shrink-0">
                   <SpotlightCard className="flex w-full">
-                    <article className="group relative flex w-full flex-col gap-6 overflow-hidden rounded-[var(--radius-card)] border border-line bg-bg-2/70 p-7 backdrop-blur-xl transition duration-500 hover:border-line-strong sm:p-8">
+                    <article className="group relative flex w-full flex-col gap-6 overflow-hidden rounded-[var(--radius-card)] border border-line bg-bg-2/70 p-7 transition duration-500 hover:border-line-strong sm:p-8">
                       {/* Gradient edge that brightens on hover. */}
                       <span
                         aria-hidden="true"

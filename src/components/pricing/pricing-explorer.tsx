@@ -38,7 +38,7 @@ export function PricingExplorer() {
       <div
         role="tablist"
         aria-label="Service categories"
-        className="-mx-5 flex gap-2 overflow-x-auto rounded-2xl border border-white/10 bg-white/[0.03] p-2 px-5 backdrop-blur-xl sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-2"
+        className="-mx-5 flex gap-2 overflow-x-auto rounded-2xl border border-white/10 bg-white/[0.03] p-2 px-5 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-2"
       >
         {pricingCategories.map((item, index) => {
           const active = item.slug === category.slug;
@@ -102,7 +102,7 @@ function PanelContent({ category }: { category: PricingCategory }) {
           ))}
         </ul>
       ) : (
-        <div className="relative mt-10 overflow-hidden rounded-[1.5rem] border border-dashed border-cyan/25 bg-white/[0.02] p-10 text-center backdrop-blur-xl">
+        <div className="relative mt-10 overflow-hidden rounded-[1.5rem] border border-dashed border-cyan/25 bg-white/[0.02] p-10 text-center">
           <div aria-hidden="true" className="absolute -right-24 -top-24 h-64 w-64 rounded-full bg-[radial-gradient(closest-side,rgba(80,40,240,0.2),transparent)]" />
           <h3 className="relative text-xl font-semibold text-white">Packages for this category are being prepared</h3>
           <p className="relative mx-auto mt-3 max-w-md text-white/60">

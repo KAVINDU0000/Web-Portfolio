@@ -65,7 +65,7 @@ export default function PricingPage() {
       {/* Closing call to action */}
       <section aria-labelledby="pricing-cta-heading" className="pb-24 sm:pb-32">
         <Container>
-          <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-8 backdrop-blur-xl sm:p-12">
+          <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-8 sm:p-12">
             <span aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-cyan via-indigo-500 to-violet-600" />
             <div aria-hidden="true" className="absolute -right-32 -top-32 h-72 w-72 rounded-full bg-[radial-gradient(closest-side,rgba(0,200,240,0.15),transparent)]" />
             <div className="relative flex flex-col gap-8 md:flex-row md:items-center md:justify-between">

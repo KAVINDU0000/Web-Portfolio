@@ -87,7 +87,7 @@ export function WorkPlayground() {
         </div>
 
         {/* Glass browser window. */}
-        <div className="relative mt-12 rounded-[1.25rem] border border-white/10 bg-white/[0.03] p-2 shadow-[0_60px_120px_-40px_rgba(0,200,240,0.3)] backdrop-blur-xl">
+        <div className="relative mt-12 rounded-[1.25rem] border border-white/10 bg-white/[0.03] p-2 shadow-[0_60px_120px_-40px_rgba(0,200,240,0.3)]">
           <div className="flex items-center gap-4 px-3 py-2.5">
             <div className="flex gap-1.5" aria-hidden="true">
               <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
@@ -127,7 +127,7 @@ export function WorkPlayground() {
                         draggedCards.current.delete(el);
                       }
                     }}
-                    className="absolute flex w-[17rem] cursor-grab flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-cyan/30 bg-cyan/[0.04] p-6 text-center backdrop-blur active:cursor-grabbing"
+                    className="absolute flex w-[17rem] cursor-grab flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-cyan/30 bg-cyan/[0.04] p-6 text-center active:cursor-grabbing"
                   >
                     <span className="text-sm font-semibold text-white/85">Next is your site.</span>
                     <span className="text-xs text-white/60">Click here to start a conversation</span>

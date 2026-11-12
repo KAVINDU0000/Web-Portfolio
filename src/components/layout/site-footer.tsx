@@ -57,7 +57,7 @@ export function SiteFooter() {
       <div className="mx-auto grid w-full max-w-[var(--container-page)] gap-14 px-5 pb-12 pt-20 sm:px-8 md:grid-cols-2 lg:grid-cols-12 lg:gap-x-10">
         <div className="lg:col-span-4">
           {/* Official logo, used unchanged, on a glass tile. */}
-          <div className="inline-flex rounded-2xl border border-white/10 bg-white/[0.04] p-4 backdrop-blur">
+          <div className="inline-flex rounded-2xl border border-white/10 bg-white/[0.04] p-4">
             <Image src="/brand/genmedia-logo-transparent.png" alt="GENMEDIA" width={975} height={545} className="h-12 w-auto" />
           </div>
           <p className="mt-7 bg-linear-to-r from-cyan via-violet-500 to-indigo-500 bg-clip-text text-sm font-semibold tracking-[0.2em] text-transparent">

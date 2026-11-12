@@ -9,7 +9,7 @@ export function QuickStart() {
       action="/contact#enquiry"
       method="get"
       aria-labelledby="quick-start-heading"
-      className="rise mt-10 max-w-xl rounded-2xl border border-white/10 bg-white/[0.03] p-2 backdrop-blur-xl [--delay:400ms]"
+      className="rise mt-10 max-w-xl rounded-2xl border border-white/10 bg-white/[0.03] p-2 [--delay:400ms]"
     >
       <h2 id="quick-start-heading" className="px-3 pb-2 pt-1 text-xs font-medium uppercase tracking-[0.18em] text-white/60">
         What do you need help with?

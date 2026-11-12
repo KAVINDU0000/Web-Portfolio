@@ -93,7 +93,7 @@ export default function AboutPage() {
       <section aria-labelledby="about-cta-heading" className="pb-24 sm:pb-32">
         <Container>
           <Reveal>
-            <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-8 backdrop-blur-xl sm:p-12">
+            <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-8 sm:p-12">
               <span aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-cyan via-indigo-500 to-violet-600" />
               <RibbonArt id="about-cta" className="pointer-events-none absolute -bottom-28 -right-28 h-80 w-80 opacity-30" />
               <div className="relative flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
