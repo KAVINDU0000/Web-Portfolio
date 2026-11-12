@@ -201,7 +201,7 @@ function ProjectPreview({ project, onClose }: { project: Project; onClose: () =>
   return (
     <div
       ref={overlayRef}
-      className="fixed inset-0 z-[80] flex items-center justify-center bg-[#02031a]/85 p-3 backdrop-blur-md sm:p-6"
+      className="fixed inset-0 z-[80] flex cursor-auto items-center justify-center bg-[#02031a]/85 p-3 backdrop-blur-md sm:p-6"
       onClick={onClose}
     >
       <div
