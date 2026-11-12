@@ -18,15 +18,15 @@ export function ReviewSummary({ values, onEdit }: ReviewSummaryProps) {
   ];
 
   return (
-    <section aria-labelledby="review-heading" className="rounded-[var(--radius-card)] border border-line bg-bg p-6">
-      <h4 id="review-heading" className="text-sm font-semibold uppercase tracking-[0.16em] text-cyan">
+    <section aria-labelledby="review-heading" className="rounded-2xl border border-white/10 bg-[#02031a]/60 p-6">
+      <h4 id="review-heading" className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan">
         Review your enquiry
       </h4>
-      <dl className="mt-5 divide-y divide-line text-sm">
+      <dl className="mt-5 divide-y divide-white/10 text-sm">
         {rows.map((row) => (
-          <div key={row.label} className="grid gap-2 py-3 sm:grid-cols-[10rem_1fr_auto] sm:items-start sm:gap-4">
-            <dt className="text-muted">{row.label}</dt>
-            <dd className="break-words whitespace-pre-line text-text">{row.value}</dd>
+          <div key={row.label} className="grid gap-2 py-3 sm:grid-cols-[9rem_1fr_auto] sm:items-start sm:gap-4">
+            <dt className="text-white/45">{row.label}</dt>
+            <dd className="break-words whitespace-pre-line text-white/90">{row.value}</dd>
             <dd>
               <button
                 type="button"
@@ -38,9 +38,9 @@ export function ReviewSummary({ values, onEdit }: ReviewSummaryProps) {
             </dd>
           </div>
         ))}
-        <div className="grid gap-2 py-3 sm:grid-cols-[10rem_1fr] sm:gap-4">
-          <dt className="text-muted">Budget</dt>
-          <dd className="text-text">{values.budget || "Not selected"}</dd>
+        <div className="grid gap-2 py-3 sm:grid-cols-[9rem_1fr] sm:gap-4">
+          <dt className="text-white/45">Budget</dt>
+          <dd className="text-white/90">{values.budget || "Not selected"}</dd>
         </div>
       </dl>
     </section>

@@ -8,10 +8,37 @@ import { company } from "@/lib/site";
 
 const resendEndpoint = "https://api.resend.com/emails";
 
+// Largest request body accepted. A full enquiry is well under 10 KB, so anything bigger is rejected unread.
+const maxBodyBytes = 12_000;
+
+// Per-address limit: at most this many submissions in the window. Counts attempts, not just successful sends.
+const rateWindowMs = 10 * 60 * 1000;
+const rateMax = 5;
+const attempts = new Map<string, number[]>();
+
+const noStore = { "Cache-Control": "no-store" };
+
 const text = (value: unknown, max: number) => (typeof value === "string" ? value.trim().slice(0, max) : "");
 
 // Header-safe single line, so a name cannot inject extra mail headers.
 const line = (value: string) => value.replace(/[\r\n]+/g, " ");
+
+function clientKey(request: Request) {
+  const forwarded = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
+  return forwarded || request.headers.get("x-real-ip") || "unknown";
+}
+
+// Returns true when this address has already used its attempts in the current window.
+function isRateLimited(key: string) {
+  const now = Date.now();
+  const recent = (attempts.get(key) ?? []).filter((time) => now - time < rateWindowMs);
+  const limited = recent.length >= rateMax;
+  if (!limited) recent.push(now);
+  attempts.set(key, recent);
+  // Keep memory bounded on a long-running server. Dropping old entries only ever relaxes the limit.
+  if (attempts.size > 5000) attempts.clear();
+  return limited;
+}
 
 function parseValues(body: Record<string, unknown>): EnquiryValues {
   return {
@@ -28,16 +55,32 @@ function parseValues(body: Record<string, unknown>): EnquiryValues {
 }
 
 export async function POST(request: Request) {
+  if (isRateLimited(clientKey(request))) {
+    return NextResponse.json({ status: "rate-limited" }, { status: 429, headers: noStore });
+  }
+
+  const declared = Number(request.headers.get("content-length") ?? 0);
+  if (declared > maxBodyBytes) {
+    return NextResponse.json({ status: "too-large" }, { status: 413, headers: noStore });
+  }
+
+  const raw = await request.text();
+  if (raw.length > maxBodyBytes) {
+    return NextResponse.json({ status: "too-large" }, { status: 413, headers: noStore });
+  }
+
   let body: Record<string, unknown>;
   try {
-    body = (await request.json()) as Record<string, unknown>;
+    const parsed: unknown = JSON.parse(raw);
+    if (typeof parsed !== "object" || parsed === null || Array.isArray(parsed)) throw new Error("not an object");
+    body = parsed as Record<string, unknown>;
   } catch {
-    return NextResponse.json({ status: "error" }, { status: 400 });
+    return NextResponse.json({ status: "error" }, { status: 400, headers: noStore });
   }
 
   // Honeypot: real visitors never fill this hidden field. Pretend success so bots do not retry.
   if (text(body.website, 200) !== "") {
-    return NextResponse.json({ status: "sent" });
+    return NextResponse.json({ status: "sent" }, { headers: noStore });
   }
 
   const values = parseValues(body);
@@ -47,12 +90,12 @@ export async function POST(request: Request) {
     (values.budget !== "" && !(budgetRanges as readonly string[]).includes(values.budget));
 
   if (Object.keys(errors).length > 0 || badChoice) {
-    return NextResponse.json({ status: "invalid", errors }, { status: 422 });
+    return NextResponse.json({ status: "invalid", errors }, { status: 422, headers: noStore });
   }
 
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
-    return NextResponse.json({ status: "not-connected" }, { status: 503 });
+    return NextResponse.json({ status: "not-connected" }, { status: 503, headers: noStore });
   }
 
   const to = process.env.ENQUIRY_TO_EMAIL ?? company.email;
@@ -89,11 +132,14 @@ export async function POST(request: Request) {
     });
 
     if (!response.ok) {
-      return NextResponse.json({ status: "error" }, { status: 502 });
+      // The provider's detail stays in the server log, not in the public response.
+      console.error("Enquiry email rejected by provider", response.status);
+      return NextResponse.json({ status: "error" }, { status: 502, headers: noStore });
     }
-  } catch {
-    return NextResponse.json({ status: "error" }, { status: 502 });
+  } catch (error) {
+    console.error("Enquiry email failed", error instanceof Error ? error.name : "unknown");
+    return NextResponse.json({ status: "error" }, { status: 502, headers: noStore });
   }
 
-  return NextResponse.json({ status: "sent" });
+  return NextResponse.json({ status: "sent" }, { headers: noStore });
 }

@@ -88,7 +88,7 @@ export default function ContactPage() {
           <aside aria-label="Ways to contact us" className="space-y-10 lg:col-span-5">
             <div>
               <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan">Ways to reach us</h2>
-              <ul className="mt-6 divide-y divide-line rounded-[var(--radius-card)] border border-line bg-bg-2/80">
+              <ul className="mt-6 divide-y divide-white/10 overflow-hidden rounded-[1.25rem] border border-white/10 bg-white/[0.03] backdrop-blur-xl">
                 {channels.map((item) => {
                   const Icon = item.icon;
                   return (
@@ -96,9 +96,9 @@ export default function ContactPage() {
                       <a
                         href={item.href}
                         {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                        className="group flex items-start gap-4 p-5 transition-colors hover:bg-white/[0.03] after:absolute after:inset-0"
+                        className="group flex items-start gap-4 p-5 transition-colors duration-300 hover:bg-white/[0.04] after:absolute after:inset-0"
                       >
-                        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--radius-control)] border border-line-strong text-cyan">
+                        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-linear-to-br from-cyan/20 via-indigo-500/15 to-violet-600/20 text-cyan ring-1 ring-inset ring-white/10 transition duration-300 group-hover:ring-cyan/40">
                           <Icon aria-hidden="true" className="h-5 w-5" />
                         </span>
                         <span className="min-w-0">
@@ -133,20 +133,22 @@ export default function ContactPage() {
             </Card>
           </aside>
 
-          {/* No card around the form: it reads as a form, not another package or pricing tile. */}
+          {/* Glass panel with a gradient top edge, so the form reads as the main action on the page. */}
           <div id="enquiry" className="scroll-mt-28 lg:col-span-6 lg:col-start-7">
-            <h2 id="enquiry-heading" className="text-[length:var(--text-headline)] font-semibold leading-tight tracking-tight">
-              Project enquiry
-            </h2>
-            <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted">
-              Three short steps. Pricing is confirmed in a written quote after we understand your requirements.
-            </p>
-            <span aria-hidden="true" className="hairline mt-8 block h-px w-full" />
-            <div className="mt-10">
-              {/* The form reads ?service= and ?package= from the URL, so it sits behind a Suspense boundary. */}
-              <Suspense fallback={<p className="text-sm text-muted">Loading enquiry form…</p>}>
-                <ContactForm />
-              </Suspense>
+            <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-6 shadow-[0_60px_120px_-50px_rgba(0,200,240,0.3)] backdrop-blur-xl sm:p-10">
+              <span aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-cyan via-indigo-500 to-violet-600" />
+              <h2 id="enquiry-heading" className="text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">
+                Project enquiry
+              </h2>
+              <p className="mt-4 max-w-xl text-sm leading-relaxed text-white/60">
+                Three short steps. Pricing is confirmed in a written quote after we understand your requirements.
+              </p>
+              <div className="mt-10">
+                {/* The form reads ?service= and ?package= from the URL, so it sits behind a Suspense boundary. */}
+                <Suspense fallback={<p className="text-sm text-muted">Loading enquiry form…</p>}>
+                  <ContactForm />
+                </Suspense>
+              </div>
             </div>
           </div>
         </Container>

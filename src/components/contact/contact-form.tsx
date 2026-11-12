@@ -102,7 +102,20 @@ export function ContactForm() {
     setSubmitState("submitting");
     try {
       const result = await submitEnquiry(values);
-      setSubmitState(result.status);
+      if (result.status === "invalid") {
+        // The server found problems the browser missed: show them on their fields and return to the first step with one.
+        setSubmitState("idle");
+        setErrors(result.errors);
+        const firstStep: Step = stepFields[1].some((field) => result.errors[field])
+          ? 1
+          : stepFields[2].some((field) => result.errors[field])
+            ? 2
+            : 3;
+        setStep(firstStep);
+        focusFirstInvalid();
+      } else {
+        setSubmitState(result.status);
+      }
     } catch {
       setSubmitState("error");
     } finally {
@@ -117,8 +130,10 @@ export function ContactForm() {
       <StepIndicator current={step} />
 
       <div>
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan">Step {step} of 3</p>
-        <h3 ref={headingRef} tabIndex={-1} className="mt-2 text-2xl font-semibold tracking-tight focus:outline-none">
+        <span className="inline-flex items-center gap-2 rounded-full border border-cyan/25 bg-cyan/[0.06] px-3 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-cyan">
+          Step {step} of 3
+        </span>
+        <h3 ref={headingRef} tabIndex={-1} className="mt-4 text-2xl font-semibold tracking-tight text-white focus:outline-none sm:text-3xl">
           {stepTitles[step]}
         </h3>
         <p className="mt-2 text-sm text-muted">
@@ -253,17 +268,24 @@ export function ContactForm() {
               {budgetRanges.map((range) => (
                 <label
                   key={range}
-                  className="flex min-h-12 cursor-pointer items-center gap-3 rounded-[var(--radius-control)] border border-line-strong px-4 text-sm transition hover:border-cyan has-[:checked]:border-cyan has-[:checked]:bg-cyan/5 has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-cyan"
+                  className="group flex min-h-14 cursor-pointer items-center gap-3 rounded-xl border border-white/10 bg-white/[0.02] px-4 text-sm transition duration-300 hover:border-cyan/40 hover:bg-white/[0.04] has-[:checked]:border-cyan has-[:checked]:bg-cyan/[0.07] has-[:checked]:shadow-[0_0_30px_-12px_rgba(0,200,240,0.7)]"
                 >
+                  {/* The radio stays in the form for keyboard and screen reader users; the dot below is the visible control. */}
                   <input
                     type="radio"
                     name="budget"
                     value={range}
                     checked={values.budget === range}
                     onChange={update("budget")}
-                    className="h-4 w-4 accent-cyan"
+                    className="peer sr-only"
                   />
-                  {range}
+                  <span
+                    aria-hidden="true"
+                    className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full border border-white/30 transition duration-300 peer-checked:border-cyan peer-focus-visible:ring-2 peer-focus-visible:ring-cyan/50"
+                  >
+                    <span className="h-2 w-2 rounded-full bg-cyan opacity-0 transition duration-300 peer-checked:opacity-100" />
+                  </span>
+                  <span className="text-white/90">{range}</span>
                 </label>
               ))}
             </div>

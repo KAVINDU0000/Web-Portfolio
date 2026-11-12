@@ -15,7 +15,8 @@ export type EnquiryService = (typeof enquiryServices)[number];
 
 // Budget brackets help us plan a first conversation. They are not prices and do not guarantee a solution or quote.
 export const budgetRanges = [
-  "Under LKR 100,000",
+  "Under LKR 50,000",
+  "LKR 50,000 to 100,000",
   "LKR 100,000 to 300,000",
   "LKR 300,000 to 700,000",
   "Above LKR 700,000",

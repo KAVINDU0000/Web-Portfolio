@@ -82,8 +82,13 @@ export function validateAll(values: EnquiryValues): EnquiryErrors {
   return validateFields(values, [...stepFields[1], ...stepFields[2], ...stepFields[3]]);
 }
 
-// "not-connected" means the server has no email provider configured yet. Any other failure throws.
-export type EnquiryResult = { status: "not-connected" } | { status: "sent" };
+// "not-connected": the server has no email provider configured yet.
+// "invalid": the server found problems the browser missed; the errors are shown on their fields.
+// Any other failure, including rate limiting, throws.
+export type EnquiryResult =
+  | { status: "not-connected" }
+  | { status: "invalid"; errors: EnquiryErrors }
+  | { status: "sent" };
 
 // Sends the enquiry to the server. Returns "sent" only after the server accepts it.
 export async function submitEnquiry(values: EnquiryValues): Promise<EnquiryResult> {
@@ -94,6 +99,10 @@ export async function submitEnquiry(values: EnquiryValues): Promise<EnquiryResul
   });
 
   if (response.status === 503) return { status: "not-connected" };
+  if (response.status === 422) {
+    const data = (await response.json()) as { errors?: EnquiryErrors };
+    return { status: "invalid", errors: data.errors ?? {} };
+  }
   if (!response.ok) throw new Error(`Enquiry failed with status ${response.status}`);
   return { status: "sent" };
 }
