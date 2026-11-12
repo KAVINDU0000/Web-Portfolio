@@ -618,3 +618,20 @@ body {
     transform: none;
   }
 }
+
+/* ---- Home hero spotlight: a soft light that follows the pointer. JavaScript only sets --mx and --my. ---- */
+.hero-spot {
+  background: radial-gradient(520px circle at var(--mx, 50%) var(--my, 30%), rgb(136 114 255 / 0.16), transparent 70%);
+  opacity: 0;
+  transition: opacity 700ms var(--ease-out-soft);
+}
+
+.hero-spotlight:hover .hero-spot {
+  opacity: 1;
+}
+
+@media (hover: none), (prefers-reduced-motion: reduce) {
+  .hero-spot {
+    display: none;
+  }
+}

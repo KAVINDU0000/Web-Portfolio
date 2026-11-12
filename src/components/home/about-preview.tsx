@@ -3,14 +3,15 @@ import { principles } from "@/data/home";
 import { ButtonLink } from "@/components/ui/button-link";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { Reveal, Stagger } from "@/components/motion/scroll-motion";
 
 export function AboutPreview() {
   return (
-    <section id="about" aria-labelledby="about-heading" className="relative isolate scroll-mt-16 py-24 sm:py-32">
+    <section id="about" aria-labelledby="about-heading" className="relative isolate scroll-mt-16 overflow-hidden py-24 sm:py-32">
       <Nebula tone="pink" className="-left-40 top-1/3 h-[30rem] w-[30rem]" />
       <Container>
         <div className="grid gap-16 lg:grid-cols-12">
-          <div className="lg:col-span-6">
+          <Reveal className="lg:col-span-6">
             <SectionHeading
               eyebrow="Who we are"
               title="We Build Technology Around Possibility."
@@ -19,17 +20,19 @@ export function AboutPreview() {
             <ButtonLink href="/about" variant="secondary" className="mt-10">
               Discover GENMEDIA ↗
             </ButtonLink>
-          </div>
+          </Reveal>
 
-          <ol className="space-y-4 lg:col-span-5 lg:col-start-8">
-            {principles.map((principle, index) => (
-              <li key={principle.title} className="rounded-[var(--radius-card)] border border-line bg-bg p-7">
-                <p className="font-mono text-xs text-cyan">0{index + 1}</p>
-                <h3 className="mt-3 text-lg font-semibold">{principle.title}</h3>
-                <p className="mt-2 leading-relaxed text-muted">{principle.text}</p>
-              </li>
-            ))}
-          </ol>
+          <Stagger targets="li" className="lg:col-span-5 lg:col-start-8">
+            <ol className="space-y-4">
+              {principles.map((principle, index) => (
+                <li key={principle.title} className="rounded-[var(--radius-card)] border border-line bg-bg p-7">
+                  <p className="font-mono text-xs text-cyan">0{index + 1}</p>
+                  <h3 className="mt-3 text-lg font-semibold">{principle.title}</h3>
+                  <p className="mt-2 leading-relaxed text-muted">{principle.text}</p>
+                </li>
+              ))}
+            </ol>
+          </Stagger>
         </div>
       </Container>
     </section>

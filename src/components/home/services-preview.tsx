@@ -5,15 +5,17 @@ import { ButtonLink } from "@/components/ui/button-link";
 import { Container } from "@/components/ui/container";
 import { ServiceCard } from "@/components/services/service-card";
 import { Nebula } from "@/components/layout/nebula";
+import { Reveal, Stagger } from "@/components/motion/scroll-motion";
+import { SpotlightCard } from "@/components/motion/spotlight-card";
 
 const accentCycle = ["cyan", "violet", "pink"] as const;
 
 export function ServicesPreview() {
   return (
-    <section id="services" aria-labelledby="services-heading" className="relative isolate scroll-mt-16 py-24 sm:py-32">
+    <section id="services" aria-labelledby="services-heading" className="relative isolate scroll-mt-16 overflow-hidden py-24 sm:py-32">
       <Nebula tone="cyan" className="-left-48 top-16 h-[34rem] w-[34rem]" />
       <Container>
-        <div className="reveal-up flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+        <Reveal className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-2xl">
             <p className="inline-flex items-center gap-2 rounded-full border border-line-strong bg-bg-2/70 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-cyan">
               <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-cyan" />
@@ -32,15 +34,19 @@ export function ServicesPreview() {
               Explore All Services <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
             </ButtonLink>
           </div>
-        </div>
+        </Reveal>
 
-        <ul className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((service, index) => (
-            <li key={service.slug} className={`reveal-up flex ${index % 3 === 1 ? "reveal-up-s1" : index % 3 === 2 ? "reveal-up-s2" : ""}`}>
-              <ServiceCard service={service} accent={accentCycle[index % accentCycle.length]} />
-            </li>
-          ))}
-        </ul>
+        <Stagger targets="li" className="mt-14">
+          <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {services.map((service, index) => (
+              <li key={service.slug} className="flex">
+                <SpotlightCard className="flex w-full">
+                  <ServiceCard service={service} accent={accentCycle[index % accentCycle.length]} />
+                </SpotlightCard>
+              </li>
+            ))}
+          </ul>
+        </Stagger>
 
         <p className="mt-10 text-sm text-muted">
           Prefer to see everything at once?{" "}

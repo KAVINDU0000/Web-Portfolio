@@ -6,18 +6,19 @@ import { DeviceMockup } from "@/components/ui/device-mockup";
 import { StatusBadge, TagBadge } from "@/components/ui/badge";
 import { ProjectMedia } from "@/components/projects/project-media";
 import { Nebula } from "@/components/layout/nebula";
+import { Parallax, Reveal } from "@/components/motion/scroll-motion";
 
 // Split feature: copy on one side, the project's screen in a device frame on the other.
-// Until approved screenshots exist, the frame shows the labelled placeholder rather than an invented screen.
+// The device drifts against the page as you scroll. Until approved screenshots exist, the frame shows the labelled placeholder.
 export function FeaturedProjects() {
   const [project] = getFeaturedProjects();
   if (!project) return null;
 
   return (
-    <section id="featured-projects" aria-labelledby="featured-heading" className="relative isolate scroll-mt-16 py-24 sm:py-32">
+    <section id="featured-projects" aria-labelledby="featured-heading" className="relative isolate scroll-mt-16 overflow-hidden py-24 sm:py-32">
       <Nebula tone="pink" className="-right-48 top-1/4 h-[30rem] w-[30rem]" />
       <Container className="grid items-center gap-16 lg:grid-cols-12 lg:gap-12">
-        <div className="reveal-up lg:col-span-5">
+        <Reveal className="lg:col-span-5">
           <p className="inline-flex items-center gap-2 rounded-full border border-line-strong bg-bg-2/70 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-cyan">
             <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-cyan" />
             Selected work
@@ -55,13 +56,15 @@ export function FeaturedProjects() {
               )}
             </div>
           </article>
-        </div>
+        </Reveal>
 
-        <div className="reveal-up reveal-up-s1 lg:col-span-7">
-          <DeviceMockup>
-            <ProjectMedia project={project} />
-          </DeviceMockup>
-        </div>
+        <Reveal delay={0.15} className="lg:col-span-7">
+          <Parallax amount={60}>
+            <DeviceMockup>
+              <ProjectMedia project={project} />
+            </DeviceMockup>
+          </Parallax>
+        </Reveal>
       </Container>
     </section>
   );

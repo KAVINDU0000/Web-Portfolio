@@ -1,16 +1,19 @@
 import type { Metadata } from "next";
 import { AboutPreview } from "@/components/home/about-preview";
-import { Capabilities } from "@/components/home/capabilities";
 import { ContactCta } from "@/components/home/contact-cta";
-import { FeaturedProjects } from "@/components/home/featured-projects";
 import { Hero } from "@/components/home/hero";
 import { HomeFaq } from "@/components/home/home-faq";
-import { InteractiveShowcase } from "@/components/home/interactive-showcase";
+import { Manifesto } from "@/components/home/manifesto";
 import { PricingPreview } from "@/components/home/pricing-preview";
 import { Process } from "@/components/home/process";
+import { RibbonDivider } from "@/components/home/ribbon-divider";
 import { ServicesPreview } from "@/components/home/services-preview";
-import { StatsStrip } from "@/components/home/stats-strip";
-import { SectionBackdrop } from "@/components/layout/section-backdrop";
+import { TaglineBand } from "@/components/home/tagline-band";
+import { TechStrip } from "@/components/home/tech-strip";
+import { WorkPlayground } from "@/components/home/work-playground";
+import { CustomCursor } from "@/components/motion/custom-cursor";
+import { ScrollRibbon } from "@/components/motion/scroll-ribbon";
+import { technologies } from "@/data/home";
 
 export const metadata: Metadata = {
   title: "Websites, Business Software and AI Solutions in Sri Lanka",
@@ -19,31 +22,21 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
+// Home page, themed on the GENMEDIA logo: cyan, violet and pink. All content is server-rendered;
+// the motion is GSAP ScrollTrigger and pointer effects, kept in small client components.
 export default function HomePage() {
   return (
     <>
+      <ScrollRibbon />
+      <CustomCursor />
       <Hero />
-      <StatsStrip />
-      <div className="relative isolate">
-        <SectionBackdrop variant="code" />
-        <ServicesPreview />
-      </div>
-      <div className="relative isolate">
-        <SectionBackdrop variant="circuit" />
-        <Process />
-      </div>
-      <div className="relative isolate">
-        <SectionBackdrop variant="wireframe" />
-        <InteractiveShowcase />
-      </div>
-      <div className="relative isolate">
-        <SectionBackdrop variant="devices" />
-        <FeaturedProjects />
-      </div>
-      <div className="relative isolate">
-        <SectionBackdrop variant="nodes" />
-        <Capabilities />
-      </div>
+      <TechStrip items={technologies} />
+      <TaglineBand />
+      <ServicesPreview />
+      <Manifesto />
+      <RibbonDivider />
+      <Process />
+      <WorkPlayground />
       <PricingPreview />
       <AboutPreview />
       <HomeFaq />

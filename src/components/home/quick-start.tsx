@@ -9,12 +9,12 @@ export function QuickStart() {
       action="/contact#enquiry"
       method="get"
       aria-labelledby="quick-start-heading"
-      className="rise mt-10 max-w-xl rounded-[var(--radius-card)] border border-line-strong bg-bg-2/70 p-4 backdrop-blur [--delay:400ms] sm:p-5"
+      className="rise mt-10 max-w-xl rounded-2xl border border-white/10 bg-white/[0.03] p-2 backdrop-blur-xl [--delay:400ms]"
     >
-      <h2 id="quick-start-heading" className="text-sm font-semibold text-text">
+      <h2 id="quick-start-heading" className="px-3 pb-2 pt-1 text-xs font-medium uppercase tracking-[0.18em] text-white/50">
         What do you need help with?
       </h2>
-      <div className="mt-3 flex flex-col gap-3 sm:flex-row">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
         <label htmlFor="quick-service" className="sr-only">
           Service of interest
         </label>
@@ -22,7 +22,7 @@ export function QuickStart() {
           id="quick-service"
           name="service"
           defaultValue=""
-          className="min-h-12 w-full appearance-none rounded-[var(--radius-control)] border border-line-strong bg-bg px-4 text-base text-text transition hover:border-white/30 focus:border-cyan focus:outline-none sm:flex-1"
+          className="min-h-12 w-full appearance-none rounded-xl border border-white/10 bg-[#02031a] px-4 text-base text-white transition hover:border-cyan/40 focus:border-cyan focus:outline-none sm:flex-1"
         >
           <option value="">Choose a service</option>
           {enquiryServices.map((service) => (
@@ -33,7 +33,7 @@ export function QuickStart() {
         </select>
         <button
           type="submit"
-          className="inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-full bg-cyan px-6 text-sm font-semibold text-bg transition hover:bg-cyan/90 hover:shadow-glow-cyan"
+          className="inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-xl bg-cyan px-6 text-sm font-semibold text-[#02031a] transition hover:shadow-[0_0_30px_-6px_rgba(0,200,240,0.7)]"
         >
           Start a quote
           <ArrowRight aria-hidden="true" className="h-4 w-4" />

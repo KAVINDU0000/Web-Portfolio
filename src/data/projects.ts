@@ -70,6 +70,37 @@ export const projects: Project[] = [
     ],
     featured: true,
   },
+  {
+    slug: "green-paradise-mirissa",
+    title: "Green Paradise Mirissa",
+    status: "Live",
+    liveUrl: "https://greenparadisemirissa.com/",
+    categories: ["Websites & Applications"],
+    summary:
+      "A marketing website for a tropical boutique hotel in Mirissa, Sri Lanka, presenting its rooms, poolside courtyard and dining areas, with an enquiry form for room requests.",
+    overview:
+      "Green Paradise Mirissa is a tropical boutique hotel a short walk from Mirissa beach. The website introduces the stay, the rooms and the setting, and lets guests send a room enquiry.",
+    problem:
+      "Guests choosing a stay need to see the rooms, the setting and how to get in touch in one place, without searching across several channels.",
+    solution:
+      "A single website covering the stay, eleven room types from budget doubles to family suites for up to four guests, the poolside courtyard, dining and lounge areas, and a guest enquiry form.",
+    features: [
+      "Eleven room types, from budget doubles to family suites for up to four guests",
+      "Pages for the stay, rooms, experience, gallery and contact",
+      "Poolside courtyard, open-air dining and lounge areas presented together",
+      "Guest enquiry form for room requests",
+    ],
+    techStack: ["React", "Vite", "Tailwind CSS", "React Router", "Lucide Icons", "Google Fonts"],
+    screenshots: [
+      {
+        src: "/projects/green-paradise-mirissa/home.png",
+        alt: "Green Paradise Mirissa homepage with the headline 'Wake up in green paradise', the poolside courtyard at dusk and the explore and availability buttons",
+        width: 1892,
+        height: 925,
+      },
+    ],
+    featured: false,
+  },
 ];
 
 export const getProject = (slug: string) => projects.find((project) => project.slug === slug);
