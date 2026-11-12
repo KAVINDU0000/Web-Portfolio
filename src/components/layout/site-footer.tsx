@@ -38,10 +38,10 @@ function ContactRow({ href, icon: Icon, label, value }: { href: string; icon: Lu
         <Icon aria-hidden="true" className="h-4 w-4" />
       </span>
       <span className="min-w-0">
-        <span className="block text-[0.65rem] uppercase tracking-[0.18em] text-white/40">{label}</span>
+        <span className="block text-[0.65rem] uppercase tracking-[0.18em] text-white/60">{label}</span>
         <span className="block truncate text-sm text-white/90 transition group-hover:text-cyan">{value}</span>
       </span>
-      <ArrowUpRight aria-hidden="true" className="ml-auto h-4 w-4 shrink-0 text-white/30 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-cyan" />
+      <ArrowUpRight aria-hidden="true" className="ml-auto h-4 w-4 shrink-0 text-white/60 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-cyan" />
     </a>
   );
 }
@@ -63,7 +63,7 @@ export function SiteFooter() {
           <p className="mt-7 bg-linear-to-r from-cyan via-violet-500 to-indigo-500 bg-clip-text text-sm font-semibold tracking-[0.2em] text-transparent">
             {company.tagline}
           </p>
-          <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/55">{company.description}</p>
+          <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/65">{company.description}</p>
         </div>
 
         <nav aria-label="Footer: site" className="lg:col-span-2">
@@ -123,7 +123,7 @@ export function SiteFooter() {
       </p>
 
       <div className="border-t border-white/10">
-        <div className="mx-auto flex w-full max-w-[var(--container-page)] flex-col gap-4 px-5 py-6 text-xs text-white/50 sm:flex-row sm:items-center sm:justify-between sm:px-8">
+        <div className="mx-auto flex w-full max-w-[var(--container-page)] flex-col gap-4 px-5 py-6 text-xs text-white/60 sm:flex-row sm:items-center sm:justify-between sm:px-8">
           <p>
             © <Suspense fallback={company.copyrightYear}><CopyrightYear /></Suspense> {company.name}. All rights reserved.
           </p>

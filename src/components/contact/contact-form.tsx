@@ -14,10 +14,10 @@ import {
   type EnquiryField,
   type EnquiryValues,
 } from "@/lib/enquiry";
-import { company } from "@/lib/site";
 import { controlClass, FormField } from "./form-field";
 import { StepIndicator, type Step } from "./step-indicator";
 import { ReviewSummary } from "./review-summary";
+import { EnquiryResultDialog, type ResultStatus } from "./enquiry-result-dialog";
 
 type SubmitState = "idle" | "submitting" | "not-connected" | "sent" | "error";
 
@@ -44,6 +44,19 @@ export function ContactForm() {
   const formRef = useRef<HTMLFormElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const submittingRef = useRef(false);
+
+  // The result popup shows for sent, failed and not-connected outcomes. Closing it after a send starts a fresh enquiry.
+  const dialogStatus: ResultStatus | null =
+    submitState === "sent" || submitState === "error" || submitState === "not-connected" ? submitState : null;
+
+  const closeDialog = () => {
+    if (submitState === "sent") {
+      setValues({ ...emptyEnquiry });
+      setErrors({});
+      setStep(1);
+    }
+    setSubmitState("idle");
+  };
 
   const update = (field: EnquiryField) => (event: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { value } = event.target;
@@ -350,45 +363,7 @@ export function ContactForm() {
         </label>
       </div>
 
-      <div aria-live="polite">
-        {submitState === "not-connected" ? (
-          <div role="status" className="rounded-[var(--radius-card)] border border-violet/50 bg-violet/5 p-6">
-            <p className="font-semibold">Your enquiry form interface is ready.</p>
-            <p className="mt-2 text-sm leading-relaxed text-muted">
-              Message delivery will be enabled when the backend integration is connected. Your enquiry has not been sent. To
-              reach us now, email{" "}
-              <a href={`mailto:${company.email}`} className="text-text underline underline-offset-4 hover:text-cyan">
-                {company.email}
-              </a>{" "}
-              or call{" "}
-              <a href={`tel:${company.phoneInternational}`} className="text-text underline underline-offset-4 hover:text-cyan">
-                {company.phoneDisplay}
-              </a>
-              .
-            </p>
-          </div>
-        ) : null}
-
-        {submitState === "sent" ? (
-          <div role="status" className="rounded-[var(--radius-card)] border border-cyan/50 bg-cyan/5 p-6">
-            <p className="font-semibold">Thank you. Your enquiry has been received.</p>
-            <p className="mt-2 text-sm leading-relaxed text-muted">We will reply using the email address you provided.</p>
-          </div>
-        ) : null}
-
-        {submitState === "error" ? (
-          <div role="alert" className="rounded-[var(--radius-card)] border border-pink/50 bg-pink/5 p-6">
-            <p className="font-semibold">Your enquiry could not be processed.</p>
-            <p className="mt-2 text-sm leading-relaxed text-muted">
-              Your answers are still here. Please try again, or email{" "}
-              <a href={`mailto:${company.email}`} className="text-text underline underline-offset-4 hover:text-cyan">
-                {company.email}
-              </a>{" "}
-              directly.
-            </p>
-          </div>
-        ) : null}
-      </div>
+      {dialogStatus ? <EnquiryResultDialog status={dialogStatus} onClose={closeDialog} /> : null}
     </form>
   );
 }

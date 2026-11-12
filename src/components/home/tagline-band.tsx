@@ -68,7 +68,7 @@ export function TaglineBand() {
       <section
         ref={ref}
         aria-label="Our promise and key facts"
-        className="relative isolate z-10 flex items-center overflow-hidden bg-bg py-20 sm:py-28 lg:motion-safe:h-screen lg:motion-safe:py-0"
+        className="relative isolate z-10 flex items-center overflow-hidden bg-transparent py-20 sm:py-28 lg:motion-safe:h-screen lg:motion-safe:py-0"
       >
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(60%_80%_at_20%_50%,rgba(32,217,244,0.10),transparent),radial-gradient(60%_80%_at_80%_50%,rgba(230,93,202,0.10),transparent)]" />
 

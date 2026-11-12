@@ -182,7 +182,7 @@ export function Hero() {
 
       <a
         href="#tech"
-        className="relative z-10 mx-auto mb-10 hidden flex-col items-center gap-2 text-xs uppercase tracking-[0.2em] text-white/50 transition hover:text-cyan lg:flex"
+        className="relative z-10 mx-auto mb-10 hidden flex-col items-center gap-2 text-xs uppercase tracking-[0.2em] text-white/60 transition hover:text-cyan lg:flex"
       >
         <Mouse aria-hidden="true" className="h-5 w-5" />
         Scroll to explore

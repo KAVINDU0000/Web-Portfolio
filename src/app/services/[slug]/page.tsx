@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowUpRight, Check } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Check, Plus } from "lucide-react";
 import { getProject } from "@/data/projects";
 import { getService, services } from "@/data/services";
+import { ProcessRail } from "@/components/about/about-sections";
 import { ButtonLink } from "@/components/ui/button-link";
-import { Card } from "@/components/ui/card";
 import { Container } from "@/components/ui/container";
-import { CtaBand } from "@/components/ui/cta-band";
-import { PageHero } from "@/components/ui/page-hero";
 import { ProjectCard } from "@/components/projects/project-card";
+import { Reveal, Stagger } from "@/components/motion/scroll-motion";
 
 export function generateStaticParams() {
   return services.map((service) => ({ slug: service.slug }));
@@ -27,8 +26,10 @@ export async function generateMetadata({ params }: PageProps<"/services/[slug]">
   };
 }
 
-const sectionClass = "border-t border-line py-20 sm:py-28";
-const eyebrowClass = "text-xs font-semibold uppercase tracking-[0.22em] text-cyan";
+const eyebrow = "text-xs font-semibold uppercase tracking-[0.22em] text-cyan";
+const heading = "mt-5 text-3xl font-semibold leading-tight tracking-tight text-white sm:text-4xl";
+const glassCard = "group relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-7 backdrop-blur-xl transition duration-500 hover:border-cyan/30 sm:p-8";
+const topEdge = "absolute inset-x-0 top-0 h-px bg-linear-to-r from-cyan via-indigo-500 to-violet-600 opacity-50 transition duration-500 group-hover:opacity-100";
 
 export default async function ServicePage({ params }: PageProps<"/services/[slug]">) {
   const { slug } = await params;
@@ -37,110 +38,162 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
 
   const Icon = service.icon;
   const relatedProjects = service.relatedProjects.map(getProject).filter((project) => project !== undefined);
+  const processSteps = service.process.map((step, index) => ({ number: `0${index + 1}`, ...step }));
 
   return (
-    <>
-      <PageHero eyebrow={`Service ${service.number}`} title={service.title} description={service.summary}>
-        <div className="flex flex-col gap-4 sm:flex-row">
-          <ButtonLink href="/contact">
-            Let&apos;s Discuss Your Project <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
-          </ButtonLink>
-          <ButtonLink href="/services" variant="secondary">
-            All services
-          </ButtonLink>
-        </div>
-      </PageHero>
+    // One navy background for the whole page, matching the other inner pages.
+    <div className="relative isolate overflow-hidden bg-[#02031a]">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(0,200,240,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(0,200,240,0.04)_1px,transparent_1px)] bg-[size:80px_80px] [mask-image:linear-gradient(to_bottom,black,transparent_25%,transparent_75%,black)]" />
+        <div className="absolute -left-40 top-[6%] h-[36rem] w-[36rem] rounded-full bg-[radial-gradient(closest-side,rgba(0,200,240,0.14),transparent)]" />
+        <div className="absolute -right-40 top-[40%] h-[40rem] w-[40rem] rounded-full bg-[radial-gradient(closest-side,rgba(80,40,240,0.18),transparent)]" />
+        <div className="absolute -left-40 bottom-[8%] h-[34rem] w-[34rem] rounded-full bg-[radial-gradient(closest-side,rgba(0,120,240,0.14),transparent)]" />
+      </div>
 
-      <section aria-labelledby="challenges-heading" className={sectionClass}>
-        <Container className="grid gap-12 lg:grid-cols-12">
-          <div className="lg:col-span-4">
-            <p className={eyebrowClass}>The challenge</p>
-            <h2 id="challenges-heading" className="mt-4 text-[length:var(--text-title)] font-semibold tracking-tight">
-              Business challenges we address
-            </h2>
+      {/* Hero */}
+      <section className="pb-20 pt-32 sm:pb-28 sm:pt-40">
+        <Container className="grid items-center gap-14 lg:grid-cols-12">
+          <div className="lg:col-span-7">
+            <Link href="/services" className="inline-flex items-center gap-2 text-sm font-medium text-white/60 transition hover:text-cyan">
+              <ArrowLeft aria-hidden="true" className="h-4 w-4" /> All services
+            </Link>
+
+            <p className="mt-8 inline-flex items-center gap-3 rounded-full border border-cyan/20 bg-cyan/[0.06] px-4 py-2 text-[0.7rem] font-medium uppercase tracking-[0.2em] text-cyan/90">
+              Service {service.number}
+            </p>
+
+            <h1 className="mt-6 text-[clamp(2.75rem,5.6vw,5rem)] font-semibold leading-[1.02] tracking-[-0.035em] text-white">
+              {service.title}
+            </h1>
+
+            <p className="mt-6 max-w-2xl text-[length:var(--text-lead)] leading-relaxed text-white/60">{service.summary}</p>
+
+            <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+              <ButtonLink href="/contact">
+                Let&apos;s Discuss Your Project <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+              </ButtonLink>
+              <ButtonLink href="/services" variant="secondary">
+                All services
+              </ButtonLink>
+            </div>
           </div>
-          <ul className="space-y-4 lg:col-span-7 lg:col-start-6">
-            {service.challenges.map((challenge) => (
-              <li key={challenge} className="flex gap-4 rounded-[var(--radius-card)] border border-line bg-bg-2 p-6 leading-relaxed text-muted">
-                <span aria-hidden="true" className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-pink" />
-                {challenge}
-              </li>
-            ))}
-          </ul>
+
+          {/* Service icon in a glass medallion with a soft glow. */}
+          <div className="lg:col-span-5">
+            <div className="relative mx-auto flex aspect-square w-full max-w-sm items-center justify-center">
+              <div aria-hidden="true" className="absolute inset-0 rounded-full bg-[radial-gradient(closest-side,rgba(0,200,240,0.25),rgba(80,40,240,0.12)_55%,transparent)] blur-2xl" />
+              <div aria-hidden="true" className="absolute inset-6 rounded-full border border-dashed border-cyan/30" />
+              <div className="relative flex h-40 w-40 items-center justify-center rounded-[2rem] border border-white/10 bg-[#070920]/80 text-cyan shadow-[0_40px_90px_-30px_rgba(0,200,240,0.5)] backdrop-blur-xl">
+                <Icon aria-hidden="true" className="h-16 w-16" />
+              </div>
+            </div>
+          </div>
         </Container>
       </section>
 
-      <section aria-labelledby="capabilities-heading" className={`${sectionClass} bg-bg-2`}>
-        <Container className="grid gap-12 lg:grid-cols-12">
-          <div className="lg:col-span-4">
-            <p className={eyebrowClass}>What we can build</p>
-            <h2 id="capabilities-heading" className="mt-4 text-[length:var(--text-title)] font-semibold tracking-tight">
+      {/* Challenges */}
+      <section aria-labelledby="challenges-heading" className="pb-24 sm:pb-32">
+        <Container className="grid gap-10 lg:grid-cols-12 lg:gap-14">
+          <Reveal className="lg:col-span-4">
+            <p className={eyebrow}>The challenge</p>
+            <h2 id="challenges-heading" className={heading}>
+              Business challenges we address
+            </h2>
+          </Reveal>
+          <Stagger className="lg:col-span-8">
+            <ul className="grid gap-4">
+              {service.challenges.map((challenge, index) => (
+                <li key={challenge} className={`${glassCard} flex gap-5 leading-relaxed text-white/75`}>
+                  <span aria-hidden="true" className={topEdge} />
+                  <span className="font-mono text-sm text-cyan">0{index + 1}</span>
+                  {challenge}
+                </li>
+              ))}
+            </ul>
+          </Stagger>
+        </Container>
+      </section>
+
+      {/* Capabilities */}
+      <section aria-labelledby="capabilities-heading" className="pb-24 sm:pb-32">
+        <Container className="grid gap-10 lg:grid-cols-12 lg:gap-14">
+          <div className="lg:col-span-5">
+            <p className={eyebrow}>What we can build</p>
+            <h2 id="capabilities-heading" className={heading}>
               Solutions within this service
             </h2>
-            <p className="mt-4 text-sm leading-relaxed text-muted">
+            <p className="mt-5 text-sm leading-relaxed text-white/60">
               Scope is agreed for each project. Listed items describe what we can build, not products already in use.
             </p>
           </div>
-          <Card className="flex items-start gap-6 p-8 lg:col-span-7 lg:col-start-6">
-            <span className="hidden h-14 w-14 shrink-0 items-center justify-center rounded-[var(--radius-control)] border border-line-strong text-cyan sm:flex">
-              <Icon aria-hidden="true" className="h-6 w-6" />
-            </span>
-            <ul className="grid flex-1 gap-3 sm:grid-cols-1">
+          <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-8 backdrop-blur-xl sm:p-10 lg:col-span-7">
+            <span aria-hidden="true" className={topEdge} />
+            <ul className="space-y-5">
               {service.capabilities.map((item) => (
-                <li key={item} className="flex gap-3 text-text">
-                  <Check aria-hidden="true" className="mt-1 h-4 w-4 shrink-0 text-cyan" />
+                <li key={item} className="flex items-center gap-4 text-white/85">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-cyan/10 text-cyan ring-1 ring-inset ring-cyan/20">
+                    <Check aria-hidden="true" className="h-4 w-4" />
+                  </span>
                   {item}
                 </li>
               ))}
             </ul>
-          </Card>
+          </div>
         </Container>
       </section>
 
-      <section aria-labelledby="features-heading" className={sectionClass}>
+      {/* Features */}
+      <section aria-labelledby="features-heading" className="pb-24 sm:pb-32">
         <Container>
-          <p className={eyebrowClass}>Key features</p>
-          <h2 id="features-heading" className="mt-4 text-[length:var(--text-title)] font-semibold tracking-tight">
-            Built into every project
-          </h2>
-          <ul className="mt-12 grid gap-px overflow-hidden rounded-[var(--radius-card)] border border-line bg-line sm:grid-cols-2">
-            {service.features.map((feature) => (
-              <li key={feature} className="flex gap-4 bg-bg p-7 leading-relaxed">
-                <span aria-hidden="true" className="font-mono text-sm text-violet">
-                  /
-                </span>
-                {feature}
-              </li>
-            ))}
-          </ul>
-        </Container>
-      </section>
-
-      <section aria-labelledby="process-heading" className={`${sectionClass} bg-bg-2`}>
-        <Container>
-          <p className={eyebrowClass}>Our implementation process</p>
-          <h2 id="process-heading" className="mt-4 text-[length:var(--text-title)] font-semibold tracking-tight">
-            How this service is delivered
-          </h2>
-          <ol className="mt-12 grid gap-6 md:grid-cols-4">
-            {service.process.map((step, index) => (
-              <li key={step.title} className="rounded-[var(--radius-card)] border border-line bg-bg p-6">
-                <p className="font-mono text-xs text-cyan">0{index + 1}</p>
-                <h3 className="mt-4 text-lg font-semibold">{step.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted">{step.text}</p>
-              </li>
-            ))}
-          </ol>
-        </Container>
-      </section>
-
-      {relatedProjects.length > 0 ? (
-        <section aria-labelledby="related-heading" className={sectionClass}>
-          <Container>
-            <p className={eyebrowClass}>Related work</p>
-            <h2 id="related-heading" className="mt-4 text-[length:var(--text-title)] font-semibold tracking-tight">
-              Projects that use this approach
+          <Reveal>
+            <p className={eyebrow}>Key features</p>
+            <h2 id="features-heading" className={heading}>
+              Built into every project
             </h2>
+          </Reveal>
+          <Stagger>
+            <ul className="mt-12 grid gap-5 sm:grid-cols-2">
+              {service.features.map((feature, index) => (
+                <li key={feature} className={`${glassCard} flex gap-5 leading-relaxed text-white/85`}>
+                  <span aria-hidden="true" className={topEdge} />
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-linear-to-br from-cyan/20 via-indigo-500/15 to-violet-600/20 font-mono text-sm text-cyan ring-1 ring-inset ring-white/10">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  {feature}
+                </li>
+              ))}
+            </ul>
+          </Stagger>
+        </Container>
+      </section>
+
+      {/* Delivery process */}
+      <section aria-labelledby="process-heading" className="pb-24 sm:pb-32">
+        <Container className="grid gap-14 lg:grid-cols-12 lg:gap-16">
+          <Reveal className="lg:col-span-5">
+            <div className="lg:sticky lg:top-32">
+              <p className={eyebrow}>Our implementation process</p>
+              <h2 id="process-heading" className={heading}>
+                How this service is delivered
+              </h2>
+            </div>
+          </Reveal>
+          <div className="lg:col-span-6 lg:col-start-7">
+            <ProcessRail steps={processSteps} />
+          </div>
+        </Container>
+      </section>
+
+      {/* Related work */}
+      {relatedProjects.length > 0 ? (
+        <section aria-labelledby="related-heading" className="pb-24 sm:pb-32">
+          <Container>
+            <Reveal>
+              <p className={eyebrow}>Related work</p>
+              <h2 id="related-heading" className={heading}>
+                Projects that use this approach
+              </h2>
+            </Reveal>
             <ul className="mt-12 grid gap-6 md:grid-cols-2">
               {relatedProjects.map((project) => (
                 <li key={project.slug}>
@@ -152,41 +205,61 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
         </section>
       ) : null}
 
-      <section aria-labelledby="faq-heading" className={`${sectionClass} bg-bg-2`}>
-        <Container className="grid gap-12 lg:grid-cols-12">
+      {/* FAQ */}
+      <section aria-labelledby="faq-heading" className="pb-24 sm:pb-32">
+        <Container className="grid gap-10 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-4">
-            <p className={eyebrowClass}>FAQ</p>
-            <h2 id="faq-heading" className="mt-4 text-[length:var(--text-title)] font-semibold tracking-tight">
+            <p className={eyebrow}>FAQ</p>
+            <h2 id="faq-heading" className={heading}>
               Frequently asked questions
             </h2>
-            <p className="mt-4 text-sm text-muted">
+            <p className="mt-5 text-sm text-white/65">
               Have another question?{" "}
-              <Link href="/contact" className="text-text underline-offset-4 hover:text-cyan hover:underline">
+              <Link href="/contact" className="text-white underline-offset-4 transition hover:text-cyan hover:underline">
                 Contact us
               </Link>
               .
             </p>
           </div>
-          <div className="divide-y divide-line border-y border-line lg:col-span-7 lg:col-start-6">
+          <div className="space-y-3 lg:col-span-8">
             {service.faqs.map((faq) => (
-              <details key={faq.question} className="group py-6">
-                <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-6 text-left font-semibold">
+              <details key={faq.question} className="group overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-xl open:border-cyan/30">
+                <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-6 p-6 text-left font-semibold text-white">
                   {faq.question}
-                  <span aria-hidden="true" className="text-xl text-cyan transition group-open:rotate-45">
-                    +
+                  <span aria-hidden="true" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/15 text-cyan transition group-open:rotate-45">
+                    <Plus className="h-4 w-4" />
                   </span>
                 </summary>
-                <p className="mt-4 leading-relaxed text-muted">{faq.answer}</p>
+                <p className="px-6 pb-6 leading-relaxed text-white/60">{faq.answer}</p>
               </details>
             ))}
           </div>
         </Container>
       </section>
 
-      <CtaBand
-        title={`Planning a ${service.title.toLowerCase()} project?`}
-        description="Share your goals and we will suggest a practical starting point."
-      />
-    </>
+      {/* Closing call to action */}
+      <section aria-labelledby="service-cta-heading" className="pb-24 sm:pb-32">
+        <Container>
+          <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-8 backdrop-blur-xl sm:p-12">
+            <span aria-hidden="true" className={topEdge} />
+            <div aria-hidden="true" className="absolute -right-32 -top-32 h-72 w-72 rounded-full bg-[radial-gradient(closest-side,rgba(0,200,240,0.15),transparent)]" />
+            <div className="relative flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
+              <div className="max-w-2xl">
+                <h2 id="service-cta-heading" className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">
+                  Planning a {service.title.toLowerCase()} project?
+                </h2>
+                <p className="mt-3 leading-relaxed text-white/60">Share your goals and we will suggest a practical starting point.</p>
+              </div>
+              <div className="flex shrink-0 flex-col gap-4 sm:flex-row">
+                <ButtonLink href="/contact">Let&apos;s Discuss Your Project ↗</ButtonLink>
+                <ButtonLink href="/services" variant="secondary">
+                  Explore Our Services
+                </ButtonLink>
+              </div>
+            </div>
+          </div>
+        </Container>
+      </section>
+    </div>
   );
 }

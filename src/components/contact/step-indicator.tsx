@@ -26,12 +26,12 @@ export function StepIndicator({ current }: { current: Step }) {
                       ? "border-cyan bg-cyan text-[#02031a]"
                       : active
                         ? "border-cyan text-cyan shadow-[0_0_24px_-6px_rgba(0,200,240,0.8)]"
-                        : "border-white/15 text-white/40"
+                        : "border-white/15 text-white/60"
                   }`}
                 >
                   {done ? <Check aria-hidden="true" className="h-4 w-4" /> : <span className="font-mono">0{step}</span>}
                 </span>
-                <span className={`hidden text-sm sm:inline ${active ? "font-semibold text-white" : "text-white/50"}`}>
+                <span className={`hidden text-sm sm:inline ${active ? "font-semibold text-white" : "text-white/60"}`}>
                   {label}
                   {done ? <span className="sr-only"> (completed)</span> : null}
                 </span>

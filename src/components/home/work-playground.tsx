@@ -72,7 +72,7 @@ export function WorkPlayground() {
       <Container>
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-2xl">
-            <p className="flex items-center gap-4 text-xs font-medium uppercase tracking-[0.22em] text-white/55">
+            <p className="flex items-center gap-4 text-xs font-medium uppercase tracking-[0.22em] text-white/65">
               <span className="font-mono text-cyan">03</span>
               <span aria-hidden="true" className="h-px w-10 bg-linear-to-r from-cyan to-indigo-500" />
               <span>Selected work</span>
@@ -81,7 +81,7 @@ export function WorkPlayground() {
               Ideas Turned Into Digital Experiences.
             </h2>
           </div>
-          <p className="max-w-sm text-sm leading-relaxed text-white/55 lg:text-right">
+          <p className="max-w-sm text-sm leading-relaxed text-white/65 lg:text-right">
             Drag the sites around and throw them. Click one to preview it.
           </p>
         </div>
@@ -95,7 +95,7 @@ export function WorkPlayground() {
               <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
             </div>
             <span className="rounded-md border border-white/10 bg-white/[0.06] px-3 py-1 text-xs font-medium text-white/80">Selected work</span>
-            <div className="mx-auto hidden max-w-md flex-1 items-center justify-center gap-2 rounded-lg bg-white/[0.05] px-3 py-1.5 text-xs text-white/55 sm:flex">
+            <div className="mx-auto hidden max-w-md flex-1 items-center justify-center gap-2 rounded-lg bg-white/[0.05] px-3 py-1.5 text-xs text-white/65 sm:flex">
               <Lock aria-hidden="true" className="h-3 w-3" />
               Drag to explore · click to preview
             </div>
@@ -130,7 +130,7 @@ export function WorkPlayground() {
                     className="absolute flex w-[17rem] cursor-grab flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-cyan/30 bg-cyan/[0.04] p-6 text-center backdrop-blur active:cursor-grabbing"
                   >
                     <span className="text-sm font-semibold text-white/85">Next is your site.</span>
-                    <span className="text-xs text-white/50">Click here to start a conversation</span>
+                    <span className="text-xs text-white/60">Click here to start a conversation</span>
                   </Link>
                 );
               }
@@ -237,7 +237,7 @@ function ProjectPreview({ project, onClose }: { project: Project; onClose: () =>
           <div className="flex flex-col gap-6 p-6 sm:p-8">
             <div className="flex flex-wrap items-center gap-3">
               <StatusBadge status={project.status} />
-              <span className="text-xs text-white/50">{project.categories[0]}</span>
+              <span className="text-xs text-white/60">{project.categories[0]}</span>
             </div>
 
             <div>
@@ -248,7 +248,7 @@ function ProjectPreview({ project, onClose }: { project: Project; onClose: () =>
             </div>
 
             <div>
-              <p className="text-[0.7rem] font-medium uppercase tracking-[0.2em] text-white/40">Built with</p>
+              <p className="text-[0.7rem] font-medium uppercase tracking-[0.2em] text-white/60">Built with</p>
               <ul className="mt-3 flex flex-wrap gap-2">
                 {project.techStack.slice(0, 6).map((tech) => (
                   <li key={tech} className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs text-white/75">
@@ -267,7 +267,7 @@ function ProjectPreview({ project, onClose }: { project: Project; onClose: () =>
               <ButtonLink href={`/projects/${project.slug}`} variant="secondary" className="w-full !border-white/15 !text-white hover:!border-cyan hover:!text-cyan">
                 View case study
               </ButtonLink>
-              {project.liveUrl ? <p className="text-center text-xs text-white/40">Opens the live site in a new tab</p> : null}
+              {project.liveUrl ? <p className="text-center text-xs text-white/60">Opens the live site in a new tab</p> : null}
             </div>
           </div>
         </div>

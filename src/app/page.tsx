@@ -26,7 +26,15 @@ export const metadata: Metadata = {
 // the motion is GSAP ScrollTrigger and pointer effects, kept in small client components.
 export default function HomePage() {
   return (
-    <>
+    // One navy background for the whole page, matching the other pages. The hero already uses this colour.
+    <div className="relative isolate overflow-hidden bg-[#02031a]">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(0,200,240,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(0,200,240,0.04)_1px,transparent_1px)] bg-[size:80px_80px] [mask-image:linear-gradient(to_bottom,black,transparent_25%,transparent_75%,black)]" />
+        <div className="absolute -left-40 top-[12%] h-[36rem] w-[36rem] rounded-full bg-[radial-gradient(closest-side,rgba(0,200,240,0.14),transparent)]" />
+        <div className="absolute -right-40 top-[46%] h-[40rem] w-[40rem] rounded-full bg-[radial-gradient(closest-side,rgba(80,40,240,0.18),transparent)]" />
+        <div className="absolute -left-40 bottom-[10%] h-[34rem] w-[34rem] rounded-full bg-[radial-gradient(closest-side,rgba(0,120,240,0.14),transparent)]" />
+      </div>
+
       <ScrollRibbon />
       <CustomCursor />
       <Hero />
@@ -41,6 +49,6 @@ export default function HomePage() {
       <AboutPreview />
       <HomeFaq />
       <ContactCta />
-    </>
+    </div>
   );
 }

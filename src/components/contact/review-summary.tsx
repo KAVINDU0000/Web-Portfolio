@@ -25,7 +25,7 @@ export function ReviewSummary({ values, onEdit }: ReviewSummaryProps) {
       <dl className="mt-5 divide-y divide-white/10 text-sm">
         {rows.map((row) => (
           <div key={row.label} className="grid gap-2 py-3 sm:grid-cols-[9rem_1fr_auto] sm:items-start sm:gap-4">
-            <dt className="text-white/45">{row.label}</dt>
+            <dt className="text-white/60">{row.label}</dt>
             <dd className="break-words whitespace-pre-line text-white/90">{row.value}</dd>
             <dd>
               <button
@@ -39,7 +39,7 @@ export function ReviewSummary({ values, onEdit }: ReviewSummaryProps) {
           </div>
         ))}
         <div className="grid gap-2 py-3 sm:grid-cols-[9rem_1fr] sm:gap-4">
-          <dt className="text-white/45">Budget</dt>
+          <dt className="text-white/60">Budget</dt>
           <dd className="text-white/90">{values.budget || "Not selected"}</dd>
         </div>
       </dl>
