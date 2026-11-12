@@ -240,6 +240,7 @@ function LogoScreen({ decorative = false }: { decorative?: boolean }) {
         alt={decorative ? "" : "GENMEDIA logo"}
         width={975}
         height={545}
+        priority
         sizes="(min-width: 1024px) 28vw, 70vw"
         className="relative h-auto w-[52%]"
       />

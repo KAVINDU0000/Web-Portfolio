@@ -33,7 +33,7 @@ export function ScrollRibbon() {
       ref={ref}
       aria-hidden="true"
       viewBox="0 0 120 1000"
-      preserveAspectRatio="none"
+      preserveAspectRatio="xMidYMid meet"
       fill="none"
       className="pointer-events-none fixed right-3 top-0 -z-10 hidden h-screen w-16 opacity-70 md:block xl:right-8"
     >
@@ -47,9 +47,8 @@ export function ScrollRibbon() {
       <path
         d="M90 -20 C 10 160, 110 300, 40 480 S 110 800, 30 1020"
         stroke="url(#scroll-ribbon-gradient)"
-        strokeWidth="4"
+        strokeWidth="3"
         strokeLinecap="round"
-        vectorEffect="non-scaling-stroke"
       />
     </svg>
   );
