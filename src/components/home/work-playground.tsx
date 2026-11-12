@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { ArrowUpRight, Lock, X } from "lucide-react";
 import { projects, type Project } from "@/data/projects";
 import { Draggable, gsap, prefersReducedMotion, useGSAP } from "@/lib/gsap";
@@ -157,7 +158,8 @@ export function WorkPlayground() {
         </div>
       </Container>
 
-      {active ? <ProjectPreview project={active} onClose={() => setActive(null)} /> : null}
+      {/* Portalled to <body> so the draggable cards (z-index boosted by GSAP) can never paint above the preview. */}
+      {active ? createPortal(<ProjectPreview project={active} onClose={() => setActive(null)} />, document.body) : null}
     </section>
   );
 }
@@ -184,6 +186,15 @@ function ProjectPreview({ project, onClose }: { project: Project; onClose: () =>
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
   }, [onClose]);
+
+  // Keep the page behind the preview from scrolling while it is open.
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, []);
 
   const domain = project.liveUrl ? new URL(project.liveUrl).hostname.replace(/^www\./, "") : "Project preview";
 
