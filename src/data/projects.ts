@@ -101,6 +101,35 @@ export const projects: Project[] = [
     ],
     featured: false,
   },
+  {
+    slug: "galani-coffee",
+    title: "Galani Coffee",
+    status: "In Development",
+    categories: ["Websites & Applications"],
+    summary:
+      "A website for Galani Coffee, a coffee brand with branches, a barista school and online ordering, presented with a warm, cinematic hero and a clear path to the menu.",
+    overview:
+      "Galani Coffee is a coffee brand with its own story, menu, branches and barista training. This website brings those together and lets visitors order and find a branch from one place.",
+    problem:
+      "A coffee brand has several things to show at once: its story, what it serves, where to find it and how to learn the craft. Without a clear structure, visitors struggle to find the next step.",
+    solution:
+      "A single website built around a bold hero and clear navigation to the story, menu, branches, barista school and contact, with an order button always in view.",
+    features: [
+      "Hero with a clear call to action to explore the menu",
+      "Pages for the brand story, menu, branches, barista school and contact",
+      "Order now button in the main navigation",
+    ],
+    techStack: [],
+    screenshots: [
+      {
+        src: "/projects/galani-coffee/home.png",
+        alt: "Galani Coffee homepage with the headline 'Galani Coffee', the tagline 'Just the right kick' and an espresso machine pouring into a latte",
+        width: 1901,
+        height: 924,
+      },
+    ],
+    featured: false,
+  },
 ];
 
 export const getProject = (slug: string) => projects.find((project) => project.slug === slug);
