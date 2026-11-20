@@ -104,7 +104,8 @@ export const projects: Project[] = [
   {
     slug: "galani-coffee",
     title: "Galani Coffee",
-    status: "In Development",
+    status: "Live",
+    liveUrl: "https://revived-pink-porpoise-33.hostingersite.com/",
     categories: ["Websites & Applications"],
     summary:
       "A website for Galani Coffee, a coffee brand with branches, a barista school and online ordering, presented with a warm, cinematic hero and a clear path to the menu.",
