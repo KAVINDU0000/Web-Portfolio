@@ -131,6 +131,44 @@ export const projects: Project[] = [
     ],
     featured: false,
   },
+  {
+    slug: "northline",
+    title: "NORTHLINE",
+    status: "Live",
+    liveUrl: "https://planar-papayawhip-pelican-68.hostingersite.com/",
+    categories: ["E-commerce"],
+    summary:
+      "A responsive fashion storefront with an editorial home page, a categorised shop, and an AI virtual try-on, built with Next.js and TypeScript.",
+    overview:
+      "NORTHLINE is a clothing brand storefront built to feel like a fashion magazine. The home page uses scroll-triggered animations, a category showcase with cycling photos, and a product carousel. Shoppers can browse by category through a mega menu, filter the shop by product type, and open product pages where the colour selection switches the photo. Customers can also upload a photo to preview a piece on themselves through an AI try-on. The site is deployed on Hostinger.",
+    problem:
+      "A clothing brand needs its storefront to feel as considered as its products. Shoppers also want to know how a piece will look on them before buying, and a plain catalogue does not show that.",
+    solution:
+      "An editorial storefront with a categorised shop, colour-aware product pages, a persistent cart and an AI virtual try-on that lets customers preview a piece on their own photo.",
+    features: [
+      "Editorial home page with scroll-triggered animations, a category showcase and a product carousel",
+      "Category mega menu, product-type filters and sorting on the shop page",
+      "Colour-aware product gallery and hover previews that cycle through colour photos",
+      "Persistent cart and server-validated checkout and contact forms",
+      "AI virtual try-on with photo validation, consent and a server-side image request",
+      "SEO metadata, a sitemap, and scroll-reveal animations that respect reduced-motion settings",
+    ],
+    techStack: [
+      "Next.js 16 (App Router)",
+      "React 19",
+      "TypeScript",
+      "Tailwind CSS 4",
+    ],
+    screenshots: [
+      {
+        src: "/projects/northline/home.png",
+        alt: "NORTHLINE homepage with the headline 'Quiet luxury for everyday life.' over a photo of a model in a red suit",
+        width: 1600,
+        height: 896,
+      },
+    ],
+    featured: false,
+  },
 ];
 
 export const getProject = (slug: string) => projects.find((project) => project.slug === slug);
